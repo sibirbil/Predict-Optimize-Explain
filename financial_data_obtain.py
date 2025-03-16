@@ -17,7 +17,7 @@ assets = [
 ]
 
 # Download historical data 
-data = yf.download(assets, start="2015-01-01", end="2019-12-1", interval="1mo")
+data = yf.download(assets, start="2021-01-01", end="2024-12-1", interval="1mo")
 
 # Ensure correct price column
 if 'Adj Close' in data.columns:
@@ -48,8 +48,8 @@ expected_returns = returns.mean()
 volatility = returns.std()
 
 # Save Data
-price_data.to_csv(os.path.join(save_path, "financial_data15.csv"))
-returns.to_csv(os.path.join(save_path, "returns_data15.csv"))
+price_data.to_csv(os.path.join(save_path, "financial_data.csv"))
+returns.to_csv(os.path.join(save_path, "returns_data.csv"))
 
 # Save summary data
 summary_df = pd.DataFrame({
@@ -65,7 +65,7 @@ print(f"Data successfully saved in: {save_path}")
 print(summary_df.head())  # Show preview of summary data
 
 # Save target return
-with open(os.path.join(save_path, "target_return15.txt"), "w") as f:
+with open(os.path.join(save_path, "target_return.txt"), "w") as f:
     f.write(str(target_return))
 
 print(f"✅ Financial data saved. Unified Target Return: {target_return:.6f}")

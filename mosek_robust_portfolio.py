@@ -36,7 +36,7 @@ We can model both terms using the second-order cones.
 For the term with square-root, the quadratic cone, 
 while the portfolio variance term can be modeled using the rotated quadratic cone.
 """
-
+df_weights = pd.DataFrame(index=df.columns)  # Create DataFrame to store weights
 with mf.Model("Robust") as M:
     
     # variables
@@ -64,6 +64,11 @@ with mf.Model("Robust") as M:
         delta.setValue(d)  # set risk tolerance parameter
         M.solve()
     
+        # Check if the solution is feasible
+        if M.getPrimalSolutionStatus() == mf.SolutionStatus.Optimal:
+            df_weights[f"delta_{d}"] = theta.level()  # Store weights
+        else:
+            print(f"Warning: No optimal solution found for delta={d}")
         #results
         portfolio_return = np.dot(x_bar.T, theta.level())[0] - gamma * t.level()[0]
         portfolio_risk = np.sqrt(2 * s.level()[0])
