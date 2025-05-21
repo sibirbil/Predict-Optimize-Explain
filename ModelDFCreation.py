@@ -10,8 +10,8 @@ from sklearn.preprocessing import StandardScaler
 import numpy as np
 
 
-final_df =pd.read_csv("/Data/batuan_data/final_df_cleaned2.csv")
-macro_df = pd.read_csv("/Data/batuhan_data/goyal-welch-a.csv")
+final_df =pd.read_csv("Data/batuhan_data/final_df_cleaned2.csv")
+macro_df = pd.read_csv("Data/batuhan_data/goyal-welch-a.csv")
 
 
 # Filter for 1990–2020
@@ -138,20 +138,6 @@ print(merged_df[merged_df['PERMNO'] == sample_PERMNO][['date', 'RET']].sort_valu
 
 
 
-# 8. Correlation heatmap (optional visualization)
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-num_cols = merged_df.select_dtypes(include=[np.number]).columns.tolist()
-corr = merged_df[num_cols].corr().round(2)
-
-plt.figure(figsize=(15, 10))
-sns.heatmap(corr, cmap="coolwarm", center=0, annot=False)
-plt.title("📈 Correlation Matrix of Numeric Features")
-plt.tight_layout()
-plt.show()
-
-
 # Create forward 1-month return (target)
 merged_df = merged_df.sort_values(['PERMNO', 'date'])
 merged_df['RET_fwd1m'] = merged_df.groupby('PERMNO')['RET'].shift(-1)
@@ -181,8 +167,6 @@ merged_df['sp'] = merged_df['sale'] / merged_df['me']
 
 # Book equity to total assets
 merged_df['be_at'] = merged_df['ceq'] / merged_df['at']
-
-# Log size (already exists as 'log_me')
 
 
 # Asset growth
@@ -227,18 +211,18 @@ merged_df['rd_at'] = merged_df['xrd'] / merged_df['at']
 merged_df['intan_at'] = merged_df['intan'] / merged_df['at']
 
 
-# R&D to sales
-merged_df['rd_sale'] = merged_df['xrd'] / merged_df['sale']
+# Operating cash flow to assets
+merged_df['ocf_at'] = merged_df['oancf'] / merged_df['at']
 
-# R&D to assets
-merged_df['rd_at'] = merged_df['xrd'] / merged_df['at']
-
-# Intangible intensity
-merged_df['intan_at'] = merged_df['intan'] / merged_df['at']
+# Accruals
+merged_df['accruals'] = (merged_df['ib'] - merged_df['oancf']) / merged_df['at']
 
 
 merged_df = merged_df.replace([np.inf, -np.inf], np.nan)
 merged_df = merged_df.fillna(method='ffill')
+
+
+merged_df['date'] = pd.to_datetime(merged_df['date'])
 
 
 # Make sure 'sic2' is integer type
@@ -545,7 +529,7 @@ print(f"🧩 Missing Characteristics ({len(missing_characteristics)}):")
 print(missing_characteristics)
 
 
-# 2. Define the list of firm-level characteristics (the 82 you've validated earlier)
+# 2. Define the list of firm-level characteristics
 firm_chars = [
     'at', 'ceq', 'csho', 'sale', 'revt', 'ni', 'txditc', 'xint', 'xsga', 'xrd', 'emp', 'dltt', 'dlc',
     'act', 'lct', 'ppent', 'pstk', 'capx', 'che', 'cogs', 'oancf', 'rect', 'invt', 'dvt', 'gp', 'ib',
@@ -582,6 +566,7 @@ macro_cols = [
  'csp',
  'cay',
  'inv_cap_ratio']
+
 firm_cols = firm_characteristics  # feature_cols should already be defined as your firm-level predictors
 
 # Filter out any rows with missing macro or firm data
@@ -590,12 +575,20 @@ interaction_df = merged_df.copy()
 # Initialize an empty DataFrame to hold interactions
 interaction_features = []
 
-# Loop over macro variables to create interaction terms
+# Initialize container for new columns
+interaction_columns = {}
+
+# Loop over macro and firm variables to create interaction terms
 for macro_var in macro_cols:
     for firm_var in firm_cols:
         interaction_name = f'{macro_var}x{firm_var}'
-        interaction_df[interaction_name] = interaction_df[macro_var] * interaction_df[firm_var]
-        interaction_features.append(interaction_name)
+        interaction_columns[interaction_name] = interaction_df[macro_var] * interaction_df[firm_var]
+
+# Concatenate all new interaction columns at once
+interaction_df = pd.concat([interaction_df, pd.DataFrame(interaction_columns)], axis=1)
+
+# Update the list of interaction feature names
+interaction_features = list(interaction_columns.keys())
 
 print(f"✅ Created {len(interaction_features)} interaction features.")
 
@@ -641,11 +634,11 @@ feature_cols = firm_characteristics + industry_cols
 meta_cols = ['PERMNO', 'date']
 target_col = 'RET_fwd1m'
 selected_cols = meta_cols + feature_cols + [target_col]
-model_df = merged_df[selected_cols].dropna(subset=[target_col])  # drop if no target
+model_df = merged_df[selected_cols].dropna(subset=[target_col])  
 
 target_col = 'RET_fwd1m'
 
-model_df = interaction_df.dropna(subset=[target_col])  # drop if no targetmodel_df = interaction_df.dropna(subset=[target_col])  # drop if no target
+model_df = interaction_df.dropna(subset=[target_col])
 
 model_df.replace([np.inf, -np.inf], np.nan, inplace=True)
 
@@ -653,22 +646,12 @@ model_df = model_df.fillna(method='ffill')
 
 model_df = model_df.dropna()
 
-feature_cols.remove('RET_fwd1m')
-feature_cols.remove('date')
-feature_cols.remove('PERMNO')
-
-
 # Step 1: Count how many rows each PERMNO has
 PERMNO_counts = interaction_df['PERMNO'].value_counts()
 
 # Step 2: Select top 1000 PERMNOs with the most rows
 top_1000_PERMNOs = PERMNO_counts.head(100).index.tolist()
 
-model_df = model_df[interaction_df['PERMNO'].isin(top_1000_PERMNOs)].copy()
+model_df = model_df[interaction_df['PERMNO'].isin(top_1000_PERMNOs)]
 
 print(f"✅ Selected top 1000 PERMNOs with most data. Total rows: {len(model_df):,}")
-
-
-
-
-
