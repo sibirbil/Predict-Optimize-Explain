@@ -22,8 +22,8 @@ def leaf_langevin(
     x       : jax.Array,
     g       : jax.Array,
     xi      : jax.Array,
-    eta     : jnp.float_,
-    clip_to : Tuple[jnp.float_ | None, jnp.float_ | None]
+    eta     : float,
+    clip_to : Tuple[float | None, float | None]
 ):
     
     step = x - eta*g + jnp.sqrt(2*eta)*xi

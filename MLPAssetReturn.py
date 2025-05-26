@@ -57,7 +57,7 @@ def train_model(model, train_loader, val_loader, epochs=100, patience=5, use_hub
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     stop_counter = 0
 
-    def huber_loss(pred, target, delta=1.0):
+    def huber_loss(pred, target, delta=1.0):  # Mehmet : torch.nn.HuberLoss var hazirda zaten
         error = target - pred
         is_small = torch.abs(error) <= delta
         squared = 0.5 * error**2
