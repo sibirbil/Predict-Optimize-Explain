@@ -108,7 +108,7 @@ def train_model(model, train_loader, val_loader, epochs=100, patience=5, use_hub
 # Rolling Training Loop
 # ----------------------------
 if __name__ == "__main__":
-    df = pd.read_csv("/content/drive/MyDrive/subdf_200firms.csv")
+    df = pd.read_csv("Data/batuhan_data/subdf_200firms.csv")
     if 'year' not in df.columns:
         df['year'] = pd.to_datetime(df['date']).dt.year
 

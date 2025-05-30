@@ -86,7 +86,7 @@ def F_function(data:pd.DataFrame, lambda_, alpha):
 
 
 
-def G_function(theta, lambda_, alpha):
+def G_function(model, params, alpha):
     def G(x):
         mu_hat = theta.T @ x
         (t,) =theta.shape
