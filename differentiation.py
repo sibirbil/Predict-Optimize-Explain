@@ -2,6 +2,10 @@ import autograd as ad
 import cvxpy as cp
 import numpy as np
 import pandas as pd
+import torch
+from torch import Tensor
+import torch.nn as nn
+from typing import Tuple
 
 
 data = pd.read_csv("Data/returns_data.csv", index_col=0, parse_dates=True)
@@ -85,23 +89,45 @@ def F_function(data:pd.DataFrame, lambda_, alpha):
 
 
 
+def G_function(
+        model: nn.Module, 
+        opt_hyps: Tuple,
+    ):
+    
+    lambda_, Sigma = opt_hyps
 
-def G_function(model, params, alpha):
-    def G(x):
-        mu_hat = theta.T @ x
-        (t,) =theta.shape
+    def G(x: Tensor):
+        
+        mu_hat :Tensor = model(x)
+        
+        t = x.shape[0]
         w = cp.Variable(t)
         b = cp.Parameter(t)
-        b.value = mu_hat
-        objective = cp.Maximize(w.T @ b - (lambda_ / 2) * cp.quad_form(w, Sigma))
+
+        b.value = mu_hat.squeeze().detach().numpy()
+
+        objective_fn = w.T @ b - (lambda_ / 2) * cp.quad_form(w, Sigma)
+        objective = cp.Maximize(objective_fn)
         constraints = [
         cp.sum(w) == 1,  
         w >= 0           
         ]
+
         problem = cp.Problem(objective, constraints)
         problem.solve(requires_grad = True)
         problem.backward()
 
-        rms = np.linalg.norm(target - mu_hat)**2
+        b_val = torch.tensor(b.gradient, dtype = torch.float32)
+        G_val = torch.tensor(problem.value, dtype = torch.float32)
+        
+        loss = mu_hat.T @ b_val
+        loss.backward()
+
+        return G_val, x.grad
     
-    return G
+    G_fn = lambda x: G(x)[0]
+    gradG = lambda x: G(x)[1]
+    
+    return G_fn, gradG
+
+

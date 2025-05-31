@@ -169,7 +169,7 @@ def torch_langevin_step(
     if a is not None or b is not None:
         x_next = torch.clamp(x_next, min=a, max=b)
     
-    return x_next, xi
+    return x_next.detach(), xi
 
 
 def torch_MALA_step(x: torch.Tensor, hyps) -> torch.Tensor:
@@ -185,7 +185,7 @@ def torch_MALA_step(x: torch.Tensor, hyps) -> torch.Tensor:
     x_proposed, xi = torch_langevin_step(x, g, eta, clip_to)
     
     # Compute gradient at proposed position
-    g_proposed = grad_func(x_proposed)
+    g_proposed = grad_func(x_proposed.requires_grad_())
     
     # Compute log proposal ratio
     forward = -torch.sum(xi**2) / (4 * eta)
@@ -212,15 +212,16 @@ def torch_MALA_chain(x: torch.Tensor, hyps, NSteps: int) -> Tuple[torch.Tensor, 
     func, grad_func, eta, *clip_to = (*hyps, None, None)[:5]
     eta = as_scheduler(eta)
     
+    x.requires_grad_(True)
     trajectory = []
     
     for step in range(NSteps):
         lr = eta(step)
         new_hyps = (func, grad_func, lr, *clip_to)
         x = torch_MALA_step(x, new_hyps)
-        trajectory.append(x.clone())
+        trajectory.append(x.detach())
     
-    return x, trajectory
+    return x, torch.stack(trajectory)
 
 ######################################################
 # Below is an earlier version which only works with  #
