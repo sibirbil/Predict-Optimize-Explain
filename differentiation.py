@@ -115,12 +115,14 @@ def G_function(
 
         problem = cp.Problem(objective, constraints)
         problem.solve(requires_grad = True)
-        problem.backward()
+        # problem.backward()
 
-        b_val = torch.tensor(b.gradient, dtype = torch.float32)
+        #b_val = torch.tensor(b.gradient, dtype = torch.float32)
         G_val = torch.tensor(problem.value, dtype = torch.float32)
+
+        # G(x) = g(w^*(model(x)), model(x)) 
         
-        loss = mu_hat.T @ b_val
+        loss = mu_hat.T @ torch.tensor(w.value, dtype = torch.float32)
         loss.backward()
 
         return G_val, x.grad
