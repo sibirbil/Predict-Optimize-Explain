@@ -11,7 +11,7 @@ from src.evaluate import evaluate_model
 from config import config
 
 if __name__ == '__main__':
-    # Load and preprocess data
+    # Load and preprocess data - data can be found in https://drive.google.com/drive/folders/1TrYzMUA_xLID5-gXOy_as8sH2ahLwz-l  (datasets.zip)
     X_train, y_train, X_valid, y_valid, X_test, y_test = load_and_preprocess_data(
         '/Users/batuhanatas/Downloads/datasets/char/Char_train.npz',
         '/Users/batuhanatas/Downloads/datasets/char/Char_valid.npz',
