@@ -88,12 +88,12 @@ Nf = 46 # number of features
 lambda_ = 0.1
 
 def F_function(
-    model       : nn.Module,
-    x_batch     : torch.Tensor,
-    y_batch     : torch.Tensor
+    model   : nn.Module,
+    x_t     : torch.Tensor,   # shape (B, F)  B firms and F features at a timestamp t
+    y_t     : torch.Tensor    # shape (B,)    B returns at a timestamp t
 ):
-    BatchSize = len(x_batch)
-    Sigma = (torch.cov(x_batch) + 0.1*torch.eye(BatchSize)).numpy()
+    BatchSize = len(x_t)
+    Sigma = (torch.cov(x_t) + 0.1*torch.eye(BatchSize)).numpy()
     lambda_ = 0.1
 
     w = cp.Variable(BatchSize)  
@@ -108,24 +108,19 @@ def F_function(
     assert problem.is_dpp()
     cvxpylayer = CvxpyLayer(problem, parameters=[b], variables=[w])
 
-    y_solution, = cvxpylayer(y_batch)
+    y_solution, = cvxpylayer(y_t)
 
     def F(params):
-        returns = func.functional_call(model, params, x_batch)
+        returns = func.functional_call(model, params, x_t)
         solution, = cvxpylayer(returns)
-        return (returns.dot(solution) -  y_batch.dot(y_solution))**2
+        return (returns.dot(solution) -  y_t.dot(y_solution))**2
     
     return F
-
-x_batch = torch.tensor(X_train[:30], dtype = torch.float)
-y_batch = torch.tensor(y_train[:30], dtype = torch.float)
-model = FNN()
-
 
 def train(
     model   : nn.Module, 
     epochs  : int, 
-    X : torch.Tensor, # Shape (T, B,F) where T = timestamps, B = portfolio size and F = 46 features
+    X : torch.Tensor, # Shape (T, B, F) where T = timestamps, B = portfolio size and F = 46 features
     y : torch.Tensor  # Shape (T, B,)
 )-> None:
 
