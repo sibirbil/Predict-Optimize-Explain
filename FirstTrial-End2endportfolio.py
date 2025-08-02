@@ -94,22 +94,19 @@ X_valid_list = [scaler.transform(X) for X in X_valid_list]
 X_test_list  = [scaler.transform(X) for X in X_test_list]
 
 
-def build_layer(n_assets, lambda_, preds):
-    """
-    Constructs the cvxpylayer per timestamp using preds to build sigma.
-    """
+def build_layer(n_assets, lambda_, preds, X_batch):
     w = cp.Variable(n_assets)
     b = cp.Parameter(n_assets)  
+    b.value = preds.detach().cpu().numpy()
 
-    # Set b to the predicted returns (passing preds directly)
-    b.value = preds.detach().cpu().numpy()  # Detach the tensor to avoid gradients
+    sigma = np.cov(X_batch.cpu().numpy(), rowvar=True) + 0.1 * np.eye(n_assets)
 
-    sigma = np.diag(preds.detach().cpu().numpy() ** 2).astype(np.float32) 
     objective = cp.Maximize(w.T @ b - (lambda_ / 2) * cp.quad_form(w, sigma))
     constraints = [cp.sum(w) == 1, w >= 0]  
     problem = cp.Problem(objective, constraints)
     assert problem.is_dpp()  
     return CvxpyLayer(problem, parameters=[b], variables=[w])
+
 
 
 
@@ -120,7 +117,7 @@ def regret_loss(model, lambda_, params, x_t, y_t):
     B = len(y_t)
     device = x_t.device
     preds = func.functional_call(model, params, x_t) 
-    cvxpylayer = build_layer(B, lambda_, preds)
+    cvxpylayer = build_layer(B, lambda_, preds, x_t)
 
     y_t_tensor = y_t.detach().clone().requires_grad_(False)
 
@@ -140,11 +137,7 @@ def regret_loss(model, lambda_, params, x_t, y_t):
 
 
 
-def train_regret_model(model, lambda_, X_train_list, y_train_list, X_valid_list, y_valid_list, X_test_list, y_test_list, epochs=5, lr=1e-3):
-    """
-    Train the model using the regret loss function and the Adam optimizer.
-    Adds validation after each epoch to check performance on unseen data and tests after training.
-    """
+def train_regret_model(model, lambda_, X_train_list, y_train_list, X_valid_list, y_valid_list, X_test_list, y_test_list, epochs=5, lr=1e-3, batch_size=20, batches_per_timestamp=10):
     optimizer = optim.Adam(model.parameters(), lr=lr)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
@@ -156,38 +149,44 @@ def train_regret_model(model, lambda_, X_train_list, y_train_list, X_valid_list,
         total_loss = 0.0
         count = 0
 
-        # Training Loop
         for batch_idx, (X_t_np, y_t_np) in enumerate(zip(X_train_list, y_train_list)):
-            if len(X_t_np) < 10:
-                continue  # Skip short timestamps
+            A_t = len(X_t_np)
+            if A_t < batch_size:
+                continue  # Skip timestamps with fewer assets than batch size
 
-            X_t = torch.tensor(X_t_np, dtype=torch.float32).to(device)
-            y_t = torch.tensor(y_t_np, dtype=torch.float32).to(device)
+            for _ in range(batches_per_timestamp):
+                # Sample random batch of assets at this timestamp
+                indices = np.random.choice(A_t, batch_size, replace=False)
+                X_batch = torch.tensor(X_t_np[indices], dtype=torch.float32).to(device)
+                y_batch = torch.tensor(y_t_np[indices], dtype=torch.float32).to(device)
 
-            loss_fn = regret_loss(model, lambda_, params, X_t, y_t)
+                loss_fn = regret_loss(model, lambda_, params, X_batch, y_batch)
 
-            optimizer.zero_grad()  
-            loss_fn.backward()  
-            optimizer.step()
+                optimizer.zero_grad()
+                loss_fn.backward()
+                optimizer.step()
 
-            total_loss += loss_fn.item()
-            count += 1
+                total_loss += loss_fn.item()
+                count += 1
 
-            # Print progress within epoch
-            print(f"Epoch {epoch+1}/{epochs}, Batch {batch_idx+1}/{len(X_train_list)}")
-            print(f"Current Loss: {loss_fn.item():.6f}")
+            print(f"Epoch {epoch+1}/{epochs}, Timestamp {batch_idx+1}/{len(X_train_list)} completed")
 
         avg_loss = total_loss / count
         print(f"Epoch {epoch+1}: Avg Regret Loss (Train) = {avg_loss:.6f}")
 
-        # Validation Loop
         model.eval()
         val_loss = 0.0
         val_count = 0
         with torch.no_grad():
             for X_valid_t_np, y_valid_t_np in zip(X_valid_list, y_valid_list):
-                X_valid_t = torch.tensor(X_valid_t_np, dtype=torch.float32).to(device)
-                y_valid_t = torch.tensor(y_valid_t_np, dtype=torch.float32).to(device)
+                A_val_t = len(X_valid_t_np)
+                if A_val_t < batch_size:
+                    continue
+
+                indices = np.random.choice(A_val_t, batch_size, replace=False)
+                X_valid_t = torch.tensor(X_valid_t_np[indices], dtype=torch.float32).to(device)
+                y_valid_t = torch.tensor(y_valid_t_np[indices], dtype=torch.float32).to(device)
+
                 val_loss_fn = regret_loss(model, lambda_, params, X_valid_t, y_valid_t)
                 val_loss += val_loss_fn.item()
                 val_count += 1
@@ -197,14 +196,19 @@ def train_regret_model(model, lambda_, X_train_list, y_train_list, X_valid_list,
 
     print("Training complete!")
 
-    # Evaluate on test data after training
     test_loss = 0.0
     test_count = 0
     with torch.no_grad():
         model.eval()
         for X_test_t_np, y_test_t_np in zip(X_test_list, y_test_list):
-            X_test_t = torch.tensor(X_test_t_np, dtype=torch.float32).to(device)
-            y_test_t = torch.tensor(y_test_t_np, dtype=torch.float32).to(device)
+            A_test_t = len(X_test_t_np)
+            if A_test_t < batch_size:
+                continue
+
+            indices = np.random.choice(A_test_t, batch_size, replace=False)
+            X_test_t = torch.tensor(X_test_t_np[indices], dtype=torch.float32).to(device)
+            y_test_t = torch.tensor(y_test_t_np[indices], dtype=torch.float32).to(device)
+
             test_loss_fn = regret_loss(model, lambda_, params, X_test_t, y_test_t)
             test_loss += test_loss_fn.item()
             test_count += 1
@@ -219,9 +223,16 @@ model = FNN(input_dim=46)
 
 train_regret_model(
     model, 
-    lambda_, 
-    X_train_list, y_train_list, 
-    X_valid_list, y_valid_list, 
-    X_test_list, y_test_list, 
-    epochs=10
+    lambda_=0.5, 
+    X_train_list=X_train_list, 
+    y_train_list=y_train_list, 
+    X_valid_list=X_valid_list, 
+    y_valid_list=y_valid_list, 
+    X_test_list=X_test_list, 
+    y_test_list=y_test_list, 
+    epochs=15,            
+    lr=5e-4,              
+    batch_size=30,        
+    batches_per_timestamp=10
 )
+
