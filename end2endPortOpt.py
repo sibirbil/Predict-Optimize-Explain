@@ -26,9 +26,9 @@ def clean_missing(data_3d, dates, name='dataset'):
         date_str = dates[t] if isinstance(dates[t], str) else str(dates[t])
     return clean_data
   
-train_npz = np.load('/content/drive/MyDrive/Colab Notebooks/Char_train.npz')
-valid_npz = np.load('/content/drive/MyDrive/Colab Notebooks/Char_valid.npz')
-test_npz  = np.load('/content/drive/MyDrive/Colab Notebooks/Char_test.npz')
+train_npz = np.load('./Data/datasets/char/Char_train.npz')
+valid_npz = np.load('./Data/datasets/char/Char_valid.npz')
+test_npz  = np.load('./Data/datasets/char/Char_test.npz')
 
 train_data = train_npz['data']
 valid_data = valid_npz['data']
@@ -99,7 +99,8 @@ def build_layer(n_assets, lambda_, preds, X_batch):
     b = cp.Parameter(n_assets)  
     b.value = preds.detach().cpu().numpy()
 
-    sigma = np.cov(X_batch.cpu().numpy(), rowvar=True) + 0.1 * np.eye(n_assets)
+    sigma = np.diag(preds.detach().cpu().numpy() ** 2).astype(np.float32)
+    #sigma = np.cov(X_batch.cpu().numpy(), rowvar=True) + 0.1 * np.eye(n_assets)
 
     objective = cp.Maximize(w.T @ b - (lambda_ / 2) * cp.quad_form(w, sigma))
     constraints = [cp.sum(w) == 1, w >= 0]  

@@ -138,7 +138,7 @@ def train(
 
 
 def G_function_benchmark(
-    model,
+    model               : nn.Module,
     params              : dict[str, torch.Tensor],
     x0                  : torch.Tensor,     #of shape (A, F) for A in the number of assets
     benchmark_return    : float,
@@ -158,38 +158,22 @@ def G_function_benchmark(
     assert problem.is_dpp()
     cvxpylayer = CvxpyLayer(problem, parameters=[b], variables=[w])
 
-    def G(x):
+    def G(xfull):
+        y, x = xfull[:,0], xfull[:, 1:]
         returns = func.functional_call(model, params, x)
         solution, = cvxpylayer(returns)
-        return (solution.dot(returns) - benchmark_return)**2
+        return (torch.dot(solution, y) - benchmark_return)**2
     
-    gradG =  func.grad(G)
+    def gradG(xfull:torch.Tensor):
+        xfull.requires_grad_(True)
+        value = G(xfull)
+        value.backward()
+        return xfull.grad
+
     return G, gradG
 
-
-
-# permutation = torch.randperm(X_train.shape[0])
-# for i in range(0, (X_train.shape[0]//BatchSize)*BatchSize, BatchSize):
-#     indices = permutation[i:i + BatchSize]
-#     x_batch = X_train[indices]
-#     Sigma = np.cov(x_batch) + 0.1*np.eye(BatchSize)
-#     y_batch = y_train[indices]
-
-#     w = cp.Variable(BatchSize)  # predicted returns 
-#     b = cp.Parameter(BatchSize)
-#     objective_fn = w.T @ b - (lambda_ / 2) * cp.quad_form(w, Sigma)
-#     objective = cp.Maximize(objective_fn)
-#     constraints = [
-#         cp.sum(w) == 1,  
-#         w >= 0           
-#     ]
-
-#     problem = cp.Problem(objective, constraints)
-#     assert problem.is_dpp()
-
-#     cvxpylayer = CvxpyLayer(problem, parameters=[b], variables=[w])
-#     b_torch = torch.tensor(y_batch, dtype = torch.float32, requires_grad=True)
-
-#     solution, = cvxpylayer(b_torch)
-
-#     torch.sum(b_torch*solution).backward()
+## HOW TO RUN LANGEVIN
+# G, gradG = G_function_benchmark(model, params, x0, 0.1, torch.eye(30), 0.1)
+# hypsG = G, gradG, 0.01 #third is MALA step size
+# import langevin
+# outx, outx_traj = langevin.torch_MALA_chain(x0full, hypsG, 1000)

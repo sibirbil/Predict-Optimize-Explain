@@ -16,9 +16,9 @@ def as_scheduler(value):
 
 
 def power_decay(
-    init_lr : jnp.float_,         # the starting learning rate 
-    alpha   : jnp.float_,         # decay rate exponent
-    offset  : jnp.float_  = 1.,   # in case step count starts from 0
+    init_lr : float,         # the starting learning rate 
+    alpha   : float,         # decay rate exponent
+    offset  : float  = 1.,   # in case step count starts from 0
     rate    : int | float = 100   # how many steps  
     ):
     """
