@@ -20,7 +20,7 @@ def build_layer(n_assets: int, lambda_: float, preds: torch.Tensor, X_batch: tor
         n_assets (int): Number of assets in the current batch (B).
         lambda_ (float): Risk aversion parameter.
         preds (torch.Tensor): Predicted returns for the assets, shape (B,).
-        X_batch (torch.Tensor): Feature matrix for assets, shape (B, F). Used for covariance.
+        X_batch (torch.Tensor): Feature matrix for assets, shape (B, F). 
 
     Returns:
         CvxpyLayer: A differentiable CVXPY layer solving the portfolio optimization problem.
