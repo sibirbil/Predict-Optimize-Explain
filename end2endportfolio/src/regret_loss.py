@@ -17,7 +17,8 @@ def regret_loss(
     lambda_: float,
     params: dict,
     x_t: torch.Tensor,  # shape (B, F)
-    y_t: torch.Tensor   # shape (B,)
+    y_t: torch.Tensor,   # shape (B,)
+    alpha : float       # coefficient to include prediction accuracy of returns
 ) -> torch.Tensor:
     """
     Computes the differentiable regret loss for a batch of assets.
@@ -46,4 +47,6 @@ def regret_loss(
 
     # Regret: difference in portfolio returns
     regret = torch.dot(y_t, p_solution) - torch.dot(y_t, y_solution)
-    return regret.pow(2)  # Squared regret loss
+
+    pred_diff = torch.nn.MSELoss(preds, y_t_tensor)
+    return regret.pow(2) + alpha*pred_diff  # Squared regret loss
