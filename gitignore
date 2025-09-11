@@ -1,5 +1,4 @@
-Data/
+./Data/
 .DS_Store
 
-__pycache__/
-Data/
+./__pycache__/

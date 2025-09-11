@@ -176,16 +176,16 @@ def torch_MALA_step(x: torch.Tensor, hyps) -> torch.Tensor:
     """
     Performs a MALA step for a single tensor with Metropolis-Hastings acceptance.
     """
-    func, grad_func, eta, *clip_to = (*hyps, None, None)[:5]
+    func, grad_func, eta, beta, *clip_to = (*hyps, None, None)[:5]
     
     # Compute gradient at current position
-    g = grad_func(x)
+    g = beta*grad_func(x)
     
     # Propose new step using Langevin dynamics
     x_proposed, xi = torch_langevin_step(x, g, eta, clip_to)
     
     # Compute gradient at proposed position
-    g_proposed = grad_func(x_proposed.requires_grad_())
+    g_proposed = beta*grad_func(x_proposed.requires_grad_())
     
     # Compute log proposal ratio
     forward = -torch.sum(xi**2) / (4 * eta)
@@ -193,7 +193,7 @@ def torch_MALA_step(x: torch.Tensor, hyps) -> torch.Tensor:
     log_proposal_ratio = reverse - forward
     
     # Compute acceptance probability
-    log_acceptance_ratio = -func(x_proposed) + func(x) + log_proposal_ratio
+    log_acceptance_ratio = -beta*func(x_proposed) + beta*func(x) + log_proposal_ratio
     acceptance_prob = torch.minimum(torch.tensor(1.0), torch.exp(log_acceptance_ratio))
     
     # Generate random uniform value for acceptance decision
@@ -209,15 +209,19 @@ def torch_MALA_chain(x: torch.Tensor, hyps, NSteps: int) -> Tuple[torch.Tensor, 
     """
     PyTorch implementation of MALA chain for single tensors.
     """
-    func, grad_func, eta, *clip_to = (*hyps, None, None)[:5]
-    eta = as_scheduler(eta)
+    func, grad_func, eta, beta, *clip_to = (*hyps, None, None)[:5]
+    # beta is the inverse temperature and is equivalent to multiplying 
+    # the func and grad_func with beta. Which means coefficients in front
+    # of gradients are eta*beta
+    eta = as_scheduler(eta/beta)
+
     
     x.requires_grad_(True)
     trajectory = []
     
     for step in range(NSteps):
         lr = eta(step)
-        new_hyps = (func, grad_func, lr, *clip_to)
+        new_hyps = (func, grad_func, lr, beta, *clip_to)
         x = torch_MALA_step(x, new_hyps)
         trajectory.append(x.detach())
     
