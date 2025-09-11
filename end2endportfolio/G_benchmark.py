@@ -52,7 +52,8 @@ G, gradG = G_function_benchmark(model, trained_params, x0, benchmark_return, Sig
 
 # Adjust step size for stability
 eta = 0.005
-hypsG = (G, gradG, eta)
+beta = 100 # for temperature
+hypsG = (G, gradG, eta, beta)
 
 # 5. Run MALA on full data
 x0_full.requires_grad_(True)
