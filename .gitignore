@@ -1,4 +1,4 @@
-./Data/
+Data/*
 .DS_Store
-
-./__pycache__/
+Chen2024-replication/*
+__pycache__/*
