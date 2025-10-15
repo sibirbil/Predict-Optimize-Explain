@@ -9,35 +9,75 @@ Created on Sat Aug  2 17:30:28 2025
 import numpy as np
 import cvxpy as cp
 import torch
+from typing import Optional, Union, Tuple
 from cvxpylayers.torch import CvxpyLayer
 
 
-def build_layer(n_assets: int, lambda_: float, preds: torch.Tensor, X_batch: torch.Tensor) -> CvxpyLayer:
-    """
-    Builds a CVXPY optimization layer for portfolio allocation using predicted returns.
+def _sample_covariance(X: torch.Tensor, ridge: float = 1e-6) -> np.ndarray:
+    """Compute a sample covariance matrix for assets in *rows* of X."""
+    if X.ndim != 2:
+        raise ValueError("X must be 2D")
+    n_assets = X.shape[0]
+    if n_assets < 2:
+        return np.eye(n_assets, dtype=np.float64)
+    X_np = X.detach().cpu().double().numpy()
+    X_centered = X_np - X_np.mean(axis=0, keepdims=True)
+    cov = (X_centered @ X_centered.T) / max(X_np.shape[1] - 1, 1)
+    cov += ridge * np.eye(n_assets)
+    return cov
 
-    Args:
-        n_assets (int): Number of assets in the current batch (B).
-        lambda_ (float): Risk aversion parameter.
-        preds (torch.Tensor): Predicted returns for the assets, shape (B,).
-        X_batch (torch.Tensor): Feature matrix for assets, shape (B, F). 
 
-    Returns:
-        CvxpyLayer: A differentiable CVXPY layer solving the portfolio optimization problem.
-    """
-    w = cp.Variable(n_assets)  # Portfolio weights
-    b = cp.Parameter(n_assets)  # Predicted returns
-    b.value = preds.detach().cpu().numpy()
+def _stable_cholesky(cov: np.ndarray, ridge: float = 1e-6) -> np.ndarray:
+    """Compute a stable Cholesky factor for a covariance matrix."""
+    cov = np.asarray(cov, dtype=np.float64)
+    cov = 0.5 * (cov + cov.T)
+    n = cov.shape[0]
+    jitter = ridge
+    for _ in range(10):
+        try:
+            L = np.linalg.cholesky(cov + jitter * np.eye(n, dtype=np.float64))
+            return L
+        except np.linalg.LinAlgError:
+            jitter *= 10
+    eigvals, eigvecs = np.linalg.eigh(cov)
+    eigvals = np.clip(eigvals, 1e-8, None)
+    roots = np.sqrt(eigvals)
+    return eigvecs @ np.diag(roots)
 
-    # Diagonal covariance for simplicity (alternatively, use covariance matrix from X_batch)
-    sigma = np.diag(preds.detach().cpu().numpy() ** 2).astype(np.float32)
-    sigma_cvx = cp.Constant(sigma)
 
-    # Mean-variance objective
-    objective = cp.Maximize(w.T @ b - (lambda_ / 2) * cp.quad_form(w, sigma_cvx))
+def build_portfolio_layer(n_assets: int, lambda_: float) -> CvxpyLayer:
+    """Create a reusable CVXPY layer parameterised by predicted returns and covariance factorizations."""
+    w = cp.Variable(n_assets)
+    b = cp.Parameter(n_assets)
+    L = cp.Parameter((n_assets, n_assets))
+    b.value = np.zeros(n_assets, dtype=np.float64)
+    L.value = np.eye(n_assets, dtype=np.float64)
+    objective = cp.Maximize(w.T @ b - (lambda_ / 2) * cp.sum_squares(L @ w))
     constraints = [cp.sum(w) == 1, w >= 0]
     problem = cp.Problem(objective, constraints)
+    if not problem.is_dpp():
+        raise RuntimeError("Portfolio optimisation problem must satisfy DPP")
+    return CvxpyLayer(problem, parameters=[b, L], variables=[w])
 
-    assert problem.is_dpp()  # Ensure problem complies with DPP (disciplined parametric programming)
 
-    return CvxpyLayer(problem, parameters=[b], variables=[w])
+def prepare_layer_inputs(
+    preds: torch.Tensor,
+    X_batch: Optional[torch.Tensor] = None,
+    Sigma_override: Optional[Union[torch.Tensor, np.ndarray]] = None,
+    ridge: float = 1e-6,
+) -> Tuple[torch.Tensor, torch.Tensor]:
+    """Prepare CPU/double parameters for the portfolio layer."""
+    preds_cpu = preds.to(dtype=torch.double, device="cpu")
+    if Sigma_override is not None:
+        if isinstance(Sigma_override, torch.Tensor):
+            cov_np = Sigma_override.detach().cpu().numpy()
+        else:
+            cov_np = np.asarray(Sigma_override, dtype=np.float64)
+    elif X_batch is not None:
+        cov_np = _sample_covariance(X_batch, ridge=ridge)
+    else:
+        n = preds_cpu.shape[0]
+        cov_np = np.eye(n, dtype=np.float64)
+    L_np = _stable_cholesky(cov_np, ridge=ridge)
+    L_cpu = torch.from_numpy(L_np.astype(np.float64))
+    return preds_cpu, L_cpu
