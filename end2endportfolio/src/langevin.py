@@ -6,6 +6,8 @@ from functools import partial
 from numbers import Number
 from typing import Tuple, List, Optional
 import torch
+from end2endportfolio.src.utils import as_scheduler
+
 
 # -----------------------
 # Example scalar function
@@ -113,7 +115,6 @@ def MALA_step(state, hyps):
     x_next = tree_map(lambda xp, xc: jnp.where(accepted, xp, xc), x_proposed, x)
     return key, x_next
 
-from src.utils import as_scheduler
 
 def MALA_chain(state, hyps, NSteps: int):
     func, grad_func, eta, beta, clip_to = _parse_hyps(hyps)
