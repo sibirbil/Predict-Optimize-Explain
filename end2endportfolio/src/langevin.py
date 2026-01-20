@@ -165,7 +165,13 @@ def torch_langevin_step(
     x_next = x - eta * g + torch.sqrt(two_eta) * xi
 
     a, b = clip_to
-    if a is not None or b is not None:
+    if isinstance(a, torch.Tensor) and (b is None):
+        x_next = torch.max(x_next, a)
+    elif isinstance(b, torch.Tensor) and (a is None):
+        x_next = torch.min(x_next, b)
+    elif isinstance(a, torch.Tensor) and isinstance(b, torch.Tensor):
+        x_next = torch.min(torch.max(x_next, a), b)
+    elif (a is not None) or (b is not None):
         # torch.clamp accepts None for min/max; ensure same dtype/device when not None
         min_v = torch.as_tensor(a, dtype=x.dtype, device=x.device) if a is not None else None
         max_v = torch.as_tensor(b, dtype=x.dtype, device=x.device) if b is not None else None
@@ -185,7 +191,8 @@ def torch_MALA_step(x: torch.Tensor, hyps) -> torch.Tensor:
     g_beta = beta * g
 
     # propose
-    x_prop, xi = torch_langevin_step(x, g_beta, eta, clip_to)
+    with torch.no_grad():
+        x_prop, xi = torch_langevin_step(x, g_beta, eta, clip_to)
 
     # gradient at proposal
     g_prop = grad_func(x_prop.requires_grad_())

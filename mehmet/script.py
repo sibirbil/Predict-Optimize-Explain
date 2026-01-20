@@ -14,6 +14,8 @@ import mehmet.sigma as msig
 from end2endportfolio.src import langevin
 from mehmet import utils
 
+from math import sqrt
+
 READY_DATA_DIR = "./Data/final_data"
 
 @dataclass
@@ -59,7 +61,7 @@ def G_function(
     pi  : AllocationPipeline,
     C_t   :torch.Tensor, #Firm characteristics
     rets_t : torch.Tensor,
-    score_function : str = "PortfolioReturn", #PortfolioReturn or Sharpe or Benchmark
+    score_function : str = "PortfolioReturn", #PortfolioReturn or Sharpe or Benchmark or Entropy
     anchor      : torch.Tensor = torch.zeros((9)),
     l2reg       : float = 0.
 ):
@@ -85,7 +87,7 @@ def G_function(
             preds_std = pi.model._transform_mu(preds)
             w_star, = cvxpylayer(preds_std)
             returns = w_star @ rets_t
-            vol = torch.sqrt(w_star @ pi.Sigma @ w_star)
+            vol = torch.sqrt(w_star @ pi.Sigma @ w_star)*sqrt(12)
             reg = l2reg*((m - anchor).square().sum())
             return - returns/vol + reg
         
@@ -100,6 +102,19 @@ def G_function(
             returns = w_star @ rets_t
             reg = l2reg*((m - anchor).square().sum())
             return (1/2)*(returns - b)**2 + reg
+        
+    elif score_function=="Entropy": #encourages diverse networks
+        def G(m):
+            mtilde = torch.cat([torch.tensor([1]),m])
+            interactions = (C_t[:, None, :] * mtilde[None, :, None]).flatten(1)
+            preds = pi.model.predictor(interactions)
+            preds_std = pi.model._transform_mu(preds)
+            w_star, = cvxpylayer(preds_std)
+            reg = l2reg*((m - anchor).square().sum())
+            return -robust_entropy(w_star) + reg
+        
+    else:
+        ValueError("score_function should be one of PortfolioReturn/Sharpe or a float")
 
     def gradG(m:torch.Tensor):
         m.requires_grad_(True)
@@ -151,8 +166,8 @@ def G_contrast_function(
             w2_star, = cvxpylayer2(preds2_std)
             pret1 = w1_star @ rets_t
             pret2 = w2_star @ rets_t
-            sharpe1 = pret1/torch.sqrt(w1_star@ pi1.Sigma @ w1_star) 
-            sharpe2 = pret2/torch.sqrt(w2_star @pi2.Sigma @ w2_star)
+            sharpe1 = sqrt(12)*pret1/torch.sqrt(w1_star@ pi1.Sigma @ w1_star) 
+            sharpe2 = sqrt(12)*pret2/torch.sqrt(w2_star @pi2.Sigma @ w2_star)
             reg = l2reg*((m - anchor).square().sum())
             return (pret1 - pret2)**2 + 0.01*torch.exp(-(sharpe1 - sharpe2)**2) + reg
         
@@ -183,6 +198,39 @@ def G_contrast_function(
         return m.grad
         
     return G, gradG
+
+
+def evaluate(
+    m       : torch.Tensor, #macro conditions
+    C_t     : torch.Tensor,  # firm characteristics from time t
+    rets_t  : torch.Tensor, # realized returns
+    Sigma_t : torch.Tensor, # the covariance of the assets looking back with EWMA from time t
+    pi  : AllocationPipeline
+):
+    mtilde = torch.cat([torch.tensor([1]),m])
+    interactions = (C_t[:, None, :] * mtilde[None, :, None]).flatten(1)
+    preds_raw = pi.model.predictor(interactions)
+    cvxpylayer = CvxpyLayer(pi.problem, parameters=pi.problem.parameters(), variables=pi.problem.variables())
+    preds_standardized = pi.model._transform_mu(preds_raw)
+    w_star, = cvxpylayer(preds_standardized)
+    portfolio_return = (w_star @ rets_t)
+    portfolio_volatility = torch.sqrt(w_star @ Sigma_t @ w_star)
+    portfolio_sharpe = portfolio_return*sqrt(12)/portfolio_volatility
+    portfolio_entropy = robust_entropy(w_star)
+    return torch.tensor([portfolio_return, portfolio_volatility, portfolio_sharpe, portfolio_entropy]), w_star
+
+def robust_entropy(probs):
+    """Cleanest implementation with explicit 0*log(0)=0"""
+    # Only compute for non-zero probabilities
+    mask = probs > 0
+    log_vals = torch.where(mask, torch.log(probs), torch.tensor(0.0))
+    entropy_vals = -probs * log_vals
+    return torch.sum(entropy_vals)
+
+def print_traj(m_traj:torch.Tensor):
+    df = pd.DataFrame(m_traj, columns=data["macro_final"].columns[2:])
+    print(df.describe())
+    return df
 
 
 # --- 2. Execution & Inspection ---
@@ -225,38 +273,50 @@ def construct_C(
     )
     positions = [i for (i,val) in enumerate(firm_ids) if val in used_assets]
     C_t = firm_chars[positions[:K]]
-    rets_t = firm_rets.iloc[positions].iloc[:K]
-    return torch.tensor(Sigma[:K,:K]), C_t, rets_t, used_assets
+    rets_t = torch.tensor(firm_rets.iloc[positions].iloc[:K].to_numpy())
+    return torch.tensor(Sigma[:K,:K], dtype = torch.float32), C_t, rets_t, used_assets[:K]
 
 
 run_dir1 = "./mehmet/e2e_state_dicts_bundle/runs/loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore"
 run_dir2 = "./mehmet/e2e_state_dicts_bundle/runs/loss=return__gamma=5.0__kappa=0.0__omega=identity__mu=zscore"
+run_dir3 = "./mehmet/e2e_state_dicts_bundle/runs/loss=utility__gamma=20.0__kappa=1.0__omega=diagSigma__mu=zscore"
+run_dir4 = "./mehmet/e2e_state_dicts_bundle/runs/loss=utility__gamma=20.0__kappa=1.0__omega=identity__mu=zscore"
+
+#run_dir3 = "./mehmet/e2e_different_topks/runs/topk=21__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore"
+#run_dir4 = "./mehmet/e2e_different_topks/runs/topk=94__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore"
+
 model1, cfg1 = load_e2e_model_from_run(run_dir=run_dir1)
 model2, cfg2 = load_e2e_model_from_run(run_dir = run_dir2)
+model3, cfg3 = load_e2e_model_from_run(run_dir = run_dir3)
+model4, cfg4 = load_e2e_model_from_run(run_dir = run_dir4)
 
-DATE = 202010
-Sigma, C_t, rets_t, used_assets = construct_C(model1, data['X_test'], meta_test, DATE, 30)
-macro_df = data['macro_final']
+DATE = 202004
+Sigma, C_t, rets_t, used_assets = construct_C(model1, data['X_test'], meta_test, DATE, 30, bestK=True)
+macro_df :pd.DataFrame = data['macro_final']
 m0 = torch.tensor(macro_df[macro_df['yyyymm']==DATE].to_numpy())[0, 2:]
+a = torch.tensor(macro_df.min() - macro_df.std())[2:]
+b = torch.tensor(macro_df.max() + macro_df.std())[2:]
 
 
 pi1 = AllocationPipeline(model1, Sigma)
 pi2 = AllocationPipeline(model2, Sigma)
+pi3 = AllocationPipeline(model3, Sigma)
+pi4 = AllocationPipeline(model4, Sigma)
 
-G, gradG = G_function(pi1, C_t, torch.tensor(rets_t.to_numpy()), "PortfolioReturn", anchor = m0, l2reg = 0.1)
+G, gradG = G_function(pi1, C_t, rets_t, "PortfolioReturn", anchor = m0, l2reg = 0.0)
 
 betaG= 100.
 etaG = 0.001/betaG
 #etaG = utils.sqrt_decay(etaG)
-N_m = 100
 
 hypsG = G, gradG, etaG, betaG
 
-G_cont, gradG_cont = G_contrast_function(pi1, pi2, C_t, torch.tensor(rets_t.to_numpy()), 'distinct_return')
+G_cont, gradG_cont = G_contrast_function(pi1, pi2, C_t, rets_t, 'distinct_return')
 
 betaG_cont = 100.
 etaG_cont = 0.0001/betaG_cont
 hypsG_cont= G_cont, gradG_cont, etaG_cont, betaG_cont
+
 
 
 # Sigma, U, used_assets = msig.build_sigma_and_U_from_ready_data(
