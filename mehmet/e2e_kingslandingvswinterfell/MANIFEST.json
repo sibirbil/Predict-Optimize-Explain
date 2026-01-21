@@ -1,0 +1,697 @@
+{
+  "bundle_type": "e2e_crisis_scenarios",
+  "root": "/content/drive/MyDrive/POE/models/e2e_v2_research_final_universe_sweep",
+  "runs_included": 69,
+  "runs": [
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=21__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=21__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "40740284ac355499e78de2d278bf2c78245d5199631c62444f52c0e1f2becad3",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=21__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=21__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "101bbfa27a826e772774d77e20b958ab7e73dbf6c917d7288723bee3afd33e8d",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=21__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=21__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "7daa81089b6ed50a12b044bad4e32ecb212dc8eb65c7bed1b02e7d4f436dc052",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=24__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=24__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "74b0553747e2613fdd9ac9067df69eac7de71e5f4b5aaf33a8b738b27b9c0774",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=24__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=24__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "ffa739e1acb601ab847e4944f8779b3380fd8e27839c894002863edaafd212d1",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=24__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=24__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "919a38ae20545e7657be07681e255c934d42475536f8ab6597a39169fbc26d0c",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=34__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=34__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "7517a31d81283f2e0a1fead680eac1d5f65c64d10c85b26c998b9b5242e43570",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=34__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=34__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "65563e3af8c3299a3dd5694eb73e4ce50a801158665b1981a3fcd84245d5aa07",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=34__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=34__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "e2658164994b01514e9a1b4fa03218a1840ac5b00f76fd29192f584776d11f89",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=37__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=37__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "a6adf96a9d163bd135b40a2762125791e52700f24dca2e2f6d2c10a2411af3ba",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=37__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=37__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "a407bc775c8d7924d3a9873acf5c52e752481016606958a6f336b9989039f029",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=37__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=37__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "3258d54bb4f8701b1f42e02385ac2cfd0bd4a631e971e0938b366907e062e575",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=40__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=40__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "805a98380a12259773eacfd9060fda65af35fc04676347ec92871947f7c692ab",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=40__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=40__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "b47e195e1d8f9ed1a4763481cf887dccf86323c0b7b04feefd5593b9ccb0e0a0",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=40__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=40__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "67701a9b30ea09eedb90fffa7f1deba24e4f8da9764c8adc9af2c8d441c27124",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=42__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=42__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "dcfc7894e0af06b513e26ec4e83cb55a5d3929a3ba23927b3dbdb2ace48f6ba7",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=42__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=42__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "83cf44d9a8b58bfd861acf58517fee1da78b43b6a42f15ceb1736a04074442aa",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=42__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=42__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "cba925ef620d543768ca496b7e29710442a19304604a3dcd4449be52134fafc7",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=47__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=47__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "783b7fdfbfc8f226dd741431162d0147c11acd7005aa0a87a1422944fced21c7",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=47__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=47__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "9d06e6098e23e3cf67b2cdd36a237b02a56a904487d7d05e492b7a8f6d9db0e1",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=47__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=47__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "b787473b05c72e6d265a21f0ff5db1483ac45266628e250fca91ff4bdee7b2a4",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=48__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=48__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "74262b1174b804214c5b3a222502f5d0b23f277f5a603db824c6752cfc4fe495",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=48__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=48__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "850fb87a52767250c05d1ea1c8fc90637d65786bc30dd26d45a19db2be37310b",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=48__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=48__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "db62577137145330216beb23aed300aa92f01ceb255ac318fc2d1c9bfde262be",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=56__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=56__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "df7f463babd907e77bc102b1b6ce8437ba747cce2a86b0499b36712189d48717",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=56__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=56__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "120db5fe38e61415a8e5fcc96bc0ffd648d4f460c8f3184583fa105309a09aa9",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=56__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=56__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "4a7bf6d67c2febf08a0f8503aa1ebc143a5292a89f009ae7dd5c1e098f80f20a",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=68__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=68__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "51dcbb879e30611ca0071cd04ac44648759e9026fec0bd1270f3aca811ee91bf",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=68__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=68__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "e45d3bb211baf7d8d9c5d0a716338da9da4c50997c56767a3a11734306a47e2b",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=68__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=68__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "4e55e830def7e299a41eeafd2e195321ccf010058b9a11dc92ecebc4e094786c",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=75__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=75__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "c3526d43d360232df66d369722045678a588d489e38dc13cd4794cd82ee5e1d2",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=75__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=75__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "38309f2e9285bdc7b211cedc572f7ab2d719bab33915ae1406d3655242c2184a",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=75__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=75__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "bbc9900cf6309abfb0f6ffc2900213b31449c22f3e242ae4e1e1c48998251072",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=83__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=83__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "67af0119f44e8c7bd6cff52616ea447f0e56085d631543e6f2df9fcfff7f5607",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=83__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=83__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "5d7a3ad3e280257d32f4a9704ad1f623b75f73de33259e76cf1ad93ddbaeab17",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=83__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=83__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "5d6d548990b0441c547d51c6951b3f13f12be5f2d8cdd290d75632927ffa366e",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=85__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=85__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "a717b9811d7b8fc54ba41c94c025c2b017b2195828c456fd0fd31885c298283d",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=85__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=85__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "8354a8b5602b93423fcb15f22ed2de44c58be4bb2d3abb1bbf1e64cb5232f481",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=85__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=85__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "9ed18cbe05b2de7b059777f1264cae48792d6f737ffd6d04fa44223dca61b8dd",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=86__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=86__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "d6faea1c2f0377c62e8aec631b59fb44569fc1d87dcabb1c655f40270efacf3c",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=86__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=86__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "31d62616e7dbbc42db0a2b204b06a1ce58c3df64d01b72df57bd39e92b44b117",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=86__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=86__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "74810b8e3ac43ca9d161791f25a6585d26153ceccabe412433c25c8981d8e615",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=89__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=89__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "398ef0cb0e8a554aec05d4249a6f45f5e7472b925cbce5c6342a9fb8d3232b34",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=89__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=89__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "851ec5b837850b7dc9dd8fb921d960f5c74a07be28eec2e2e9e037325ef241c3",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=89__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=89__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "e5042f321cd3ecf8b21d2c7094678f2e6d8f31a64e0fa2e3d4c9a6e9c5fe5bdd",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=92__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=92__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "9f80f89b975c70ec0716c87708dfa7a1199155d85a19f54756102a452dbf69b3",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=92__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=92__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "18998d70a62a3c8bc946660bf0b586954cce552d472ad8d3732cb64df9b03c84",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=92__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=92__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "5595e7bbbeebde1e86958c51b237061a491cc0451ab71ffc5d2cc17991c52917",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=93__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=93__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "88d13701df2f3e8cd3591036e37c06aa9d6b0671a74ecd085fea236422bc58f9",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=93__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=93__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "480ce2259597bd8e8b026b136a4d6e792a5ea5b5b1c031f7eaed7e9012524870",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=93__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=93__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "e2fd3f7c839350c3c4c34ededef00ce23018d772690752eb0ba846d79c3b8466",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=94__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=94__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "4ab6029de6fecc38363a336b092d189af68b5436dae9cb4625006c28835639ae",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=94__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=94__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "1326dd6598cf2ef0ae631a0ad16a16549f93ae68fc9a9374d51812dd7491f5e1",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=94__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_universe_sweep/scenario=summer_child_no_dotcom_pre2007__topk=94__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "494f7908520fd35339e56a38cfaf9ead4b3b2f9e3579d90e97a696cde7b4decd",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=21__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=21__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "d2ab1b4a327ff7163cf8bbaa505eea5ed36757e1cecaae6268643d3ff98b38e0",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=21__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=21__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "cea6c7b6f1efbc8e34d926b5b12eaa44244430f8a2d93b7ba539c34d0def26ce",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=21__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=21__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "446573ac7d02e7e3c723b2190c4f9a4e95e770ccfceed1b0c880e7ab912b92dc",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=24__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=24__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "6ee6fef816959bf66aadc895d16fe89dc5c4df1531d8fdf93b69d54e45d8ba6d",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=24__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=24__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "72ea29abdfb304b0bf907e70b9c09f6cd2614f97e55e36be3beb32820efbe10d",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=24__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=24__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "c61e535069f53c58c54eb29ccf267e6332a6a7111f0912aae7f80d2df3066230",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=68__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=68__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "e71570c2ed08af7e1a782ed8f24a52a2a0c963800be18c1d4969f72cdefef51d",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=68__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=68__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "6a41630d43e64a8fa9b644a48bc00f97b1116e70dd1db2b8a8e8f1bbf70389ad",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=68__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=68__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "517a6bfb4f46d43488d6c32f1aad674e5b2006a11b1a4d47b528d915b723e2d2",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=75__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=75__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "7c812e91a310eb7f88cecc4906dfa5fc3b089ea602a6b02db9ed4e36be012546",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=75__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=75__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "e668c1dff8f69ab97a5ad6df5928d4fd0d7ee97258e499fd182ba4f9c7d7ebd0",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=75__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=75__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "d44e007485ed0896e2e49bd8d827ff704e958963c550eebd2620edf5d6250dd1",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=93__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=93__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "f2973e9131b30ee727c5ed92df5e4bbe03fa4d760465f42b61d74c5ac937a8a9",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=93__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=93__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+      "best_state_sha256": "cf61218092337ff6ac0f55dda48830e3a4ace56931d13cee53b9510cfd1dcc2f",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=93__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_universe_sweep/scenario=winter_wolf_seen_2008_in_train__topk=93__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "33baec737706013801a0c980f1ef3b82ea5fba8bd4f731cd3a2787b564b8350f",
+      "best_state_bytes": 190389,
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    }
+  ]
+}
