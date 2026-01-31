@@ -4,12 +4,12 @@ import torch
 import pandas as pd
 
 from typing import Optional, List
-from src.modules.e2e_model_defs import E2EPortfolioModel, load_e2e_model_from_run, load_fnn_from_dir
+from src.modules.pao_model_defs import PAOPortfolioModel, load_pao_model_from_run, load_fnn_from_dir
 
 from src.modules.probe_eval import AllocationPipeline, G_function, evaluate, robust_entropy, traj_outputs
 from end2endportfolio.src import langevin
 from src.modules.sigma import data, construct_C, construct_C2
-from src.utils.utils import sqrt_decay
+from src.utils.helper_functions import sqrt_decay
 from src.utils.plotting import pairplot
 ASSET_SIZE = 60
 
@@ -31,7 +31,7 @@ LAMBDA = 10.0
 run_dir_pto = "./fnn_v1"
 
 pto_model_fnn, pto_feature_cols, pto_cfg = load_fnn_from_dir(run_dir_pto)
-pto_model = E2EPortfolioModel(
+pto_model = PAOPortfolioModel(
     input_dim=1400, n_assets=ASSET_SIZE, 
     lambd=LAMBDA, kappa=KAPPA, 
     omega_mode="identity", 
@@ -42,8 +42,8 @@ pto_model = E2EPortfolioModel(
 )
 pto_model.predictor = pto_model_fnn
 
-run_dir_pao = f"./e2e_state_dicts_bundle/runs/loss=sharpe__gamma={LAMBDA}__kappa={KAPPA}__omega=diagSigma__mu=zscore"
-pao_model, pao_cfg = load_e2e_model_from_run(run_dir_pao)
+run_dir_pao = f"./pao_state_dicts_bundle/runs/loss=sharpe__gamma={LAMBDA}__kappa={KAPPA}__omega=diagSigma__mu=zscore"
+pao_model, pao_cfg = load_pao_model_from_run(run_dir_pao)
 
 
 meta_train, meta_val, meta_test = strict_metadata_alignment(data['metadata'], train_end=TRAIN_END, val_end=VAL_END)

@@ -12,17 +12,17 @@ import torch
 
 try:
     from ..utils.io import save_json
-    from ..models.e2e_portfolio import E2EPortfolioModel
+    from ..models.pao_portfolio import PAOPortfolioModel
     from ..portfolio.metrics import perf_stats, weights_diagnostics
 except ImportError:
     from utils.io import save_json
-    from models.e2e_portfolio import E2EPortfolioModel
+    from models.pao_portfolio import PAOPortfolioModel
     from portfolio.metrics import perf_stats, weights_diagnostics
 
 
 @torch.no_grad()
 def eval_dataset(
-    model: E2EPortfolioModel,
+    model: PAOPortfolioModel,
     ds,  # MonthCacheDataset
     device: str
 ) -> Dict[str, Any]:
@@ -36,7 +36,7 @@ def eval_dataset(
     - Information coefficient (IC) between predictions and realized returns
 
     Args:
-        model: E2EPortfolioModel instance
+        model: PAOPortfolioModel instance
         ds: MonthCacheDataset with cached month-level data
         device: Device to run evaluation on ('cpu' or 'cuda')
 
@@ -118,7 +118,7 @@ def eval_dataset(
 @torch.no_grad()
 def backtest_and_save(
     run_dir: Path,
-    model: E2EPortfolioModel,
+    model: PAOPortfolioModel,
     test_ds,  # MonthCacheDataset
     device: str
 ) -> Dict[str, Any]:
@@ -131,7 +131,7 @@ def backtest_and_save(
 
     Args:
         run_dir: Directory to save results
-        model: E2EPortfolioModel instance
+        model: PAOPortfolioModel instance
         test_ds: Test dataset (MonthCacheDataset)
         device: Device to run evaluation on
 

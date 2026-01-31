@@ -1,20 +1,20 @@
 """
-End-to-End Portfolio Model combining prediction and optimization.
+Predict-and-Optimize Portfolio Model combining prediction and optimization.
 """
 import torch
 import torch.nn as nn
 from typing import Tuple
 
 try:
-    from .score_network import E2EScoreNetwork
+    from .score_network import PAOScoreNetwork
     from ..optimization.layers import DifferentiableMVOLayer, DifferentiableRobustMVOLayer
 except ImportError:
     # Fallback for direct imports
-    from models.score_network import E2EScoreNetwork
+    from models.score_network import PAOScoreNetwork
     from optimization.layers import DifferentiableMVOLayer, DifferentiableRobustMVOLayer
 
 
-class E2EPortfolioModel(nn.Module):
+class PAOPortfolioModel(nn.Module):
     """
     Complete E2E portfolio optimization model.
 
@@ -65,7 +65,7 @@ class E2EPortfolioModel(nn.Module):
         self.mu_cap = float(mu_cap)
 
         # Score network for predicting returns
-        self.predictor = E2EScoreNetwork(input_dim, hidden_dims, dropout)
+        self.predictor = PAOScoreNetwork(input_dim, hidden_dims, dropout)
 
         # Differentiable optimization layer
         if self.kappa > 0:

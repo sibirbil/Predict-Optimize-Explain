@@ -1,5 +1,5 @@
 """
-Score network for E2E portfolio optimization.
+Score network for PAO portfolio optimization.
 """
 import numpy as np
 import torch
@@ -7,7 +7,7 @@ import torch.nn as nn
 from typing import Tuple
 
 
-class E2EScoreNetwork(nn.Module):
+class PAOScoreNetwork(nn.Module):
     """
     Neural network for predicting expected returns in E2E framework.
 

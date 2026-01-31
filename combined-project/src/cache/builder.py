@@ -1,7 +1,7 @@
 """
 E2E Cache Builder Module.
 
-Builds month-level cache for E2E training with pre-computed:
+Builds month-level cache for PAO training with pre-computed:
 - Universe selection (top-k assets per month)
 - FNN predictions
 - Covariance matrices (EWMA with shrinkage)
@@ -116,7 +116,7 @@ def get_universe_sizes(
     universe_draws: int = 10,
 ) -> List[int]:
     """
-    Get list of universe sizes for E2E training.
+    Get list of universe sizes for PAO training.
 
     If universe_sizes is provided, use those values.
     Otherwise, randomly sample from [universe_min, universe_max].
@@ -169,7 +169,7 @@ def build_month_cache(
     pred_batch_size: int = 2048,
 ) -> Path:
     """
-    Build month-level cache for E2E training.
+    Build month-level cache for PAO training.
 
     For each month in the split:
     1. Select top-k universe using FNN predictions

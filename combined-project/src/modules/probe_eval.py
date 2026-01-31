@@ -1,6 +1,6 @@
 import torch
 from dataclasses import dataclass, field
-from src.modules.e2e_model_defs import E2EPortfolioModel
+from src.modules.pao_model_defs import PAOPortfolioModel
 
 from cvxpylayers.torch import CvxpyLayer
 import cvxpy as cp
@@ -10,7 +10,7 @@ import pandas as pd
 
 @dataclass
 class AllocationPipeline():
-    model : E2EPortfolioModel #we need this so that the model has a predictor method as well as _transform_mu methods
+    model : PAOPortfolioModel #we need this so that the model has a predictor method as well as _transform_mu methods
     Sigma : torch.Tensor
     kappa : float = field(init= False)
     lambd : float = field(init= False)

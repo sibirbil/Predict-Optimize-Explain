@@ -1,13 +1,13 @@
 """
-e2e_model_defs.py
+pao_model_defs.py
 
 Model definitions and loaders for the E2E Predict-and-Optimize pipeline.
 
 Contents:
   - AssetPricingFNN + load_fnn_from_dir (for selection, optional)
   - DifferentiableMVOLayer / DifferentiableRobustMVOLayer (cvxpylayers; solver forced)
-  - E2EScoreNetwork + E2EPortfolioModel
-  - load_e2e_model_from_run (config.json + best_state.pt)
+  - PAOScoreNetwork + PAOPortfolioModel
+  - load_pao_model_from_run (config.json + best_state.pt)
 """
 
 from __future__ import annotations
@@ -187,7 +187,7 @@ class DifferentiableRobustMVOLayer(nn.Module):
 # =============================================================================
 # 3) Predictor + E2E portfolio model
 # =============================================================================
-class E2EScoreNetwork(nn.Module):
+class PAOScoreNetwork(nn.Module):
     def __init__(self, input_dim: int, hidden_dims: Tuple[int, ...], dropout: float):
         super().__init__()
         layers: List[nn.Module] = []
@@ -217,7 +217,7 @@ class E2EScoreNetwork(nn.Module):
         return self.net(x).squeeze(-1)
 
 
-class E2EPortfolioModel(nn.Module):
+class PAOPortfolioModel(nn.Module):
     def __init__(
         self,
         input_dim: int,
@@ -241,7 +241,7 @@ class E2EPortfolioModel(nn.Module):
         self.mu_scale = float(mu_scale)
         self.mu_cap = float(mu_cap)
 
-        self.predictor = E2EScoreNetwork(int(input_dim), tuple(hidden_dims), float(dropout))
+        self.predictor = PAOScoreNetwork(int(input_dim), tuple(hidden_dims), float(dropout))
 
         if self.kappa > 0:
             self.opt = DifferentiableRobustMVOLayer(self.n_assets, self.lambd, self.kappa)
@@ -282,10 +282,10 @@ class E2EPortfolioModel(nn.Module):
 # =============================================================================
 # 4) Run loader
 # =============================================================================
-def load_e2e_model_from_run(
+def load_pao_model_from_run(
     run_dir: Union[str, Path],
     map_location: str = "cpu"
-) -> Tuple[E2EPortfolioModel, Dict[str, Any]]:
+) -> Tuple[PAOPortfolioModel, Dict[str, Any]]:
     run_dir = Path(run_dir)
     cfg_path = run_dir / "config.json"
     state_path = run_dir / "best_state.pt"
@@ -300,7 +300,7 @@ def load_e2e_model_from_run(
     hidden_dims = tuple(int(x) for x in cfg["hidden_dims"])
     dropout = float(cfg["dropout"])
 
-    model = E2EPortfolioModel(
+    model = PAOPortfolioModel(
         input_dim=int(cfg["input_dim"]),
         n_assets=int(cfg["topk"]),
         lambd=float(cfg["gamma"]),
@@ -324,7 +324,7 @@ __all__ = [
     "load_fnn_from_dir",
     "DifferentiableMVOLayer",
     "DifferentiableRobustMVOLayer",
-    "E2EScoreNetwork",
-    "E2EPortfolioModel",
-    "load_e2e_model_from_run",
+    "PAOScoreNetwork",
+    "PAOPortfolioModel",
+    "load_pao_model_from_run",
 ]

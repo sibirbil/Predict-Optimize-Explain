@@ -1,5 +1,5 @@
 """
-Differentiable optimization layers for end-to-end portfolio learning.
+Differentiable optimization layers for predict-and-optimize portfolio learning.
 """
 import torch
 import torch.nn as nn
@@ -17,7 +17,7 @@ class DifferentiableMVOLayer(nn.Module):
 
     where ||Uw||² = w'Σw (U is the Cholesky/sqrt factor of Σ).
 
-    Enables backpropagation through portfolio optimization for end-to-end learning.
+    Enables backpropagation through portfolio optimization for predict-and-optimize learning.
     """
 
     def __init__(self, n_assets: int, lambda_: float):

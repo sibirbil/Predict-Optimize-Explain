@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository implements traditional **Predict-Then-Optimize (PTO)** with **end-to-end differentiable optimization (E2E)**, and providing **scenario generation**.
+This repository implements traditional **Predict-Then-Optimize (PTO)** with **predict-and-optimize differentiable optimization (PAO)**, and providing **scenario generation**.
 
 ## Usage
 
@@ -52,14 +52,14 @@ python scripts/02_run_pto_streaming.py \
 - `outputs/pto_results_*.json`: Performance metrics
 - `models/fnn_v1/`: Trained prediction model
 
-### Step 4: Train E2E Models
+### Step 4: Train PAO Models
 
 ```bash
 # Default configuration
-python scripts/03_run_e2e_streaming.py
+python scripts/03_run_pao_streaming.py
 
 # Specify loss function and risk aversion
-python scripts/03_run_e2e_streaming.py \
+python scripts/03_run_pao_streaming.py \
     --loss-type utility \
     --lambda 10.0 \
     --kappa 1.0 \
@@ -67,18 +67,18 @@ python scripts/03_run_e2e_streaming.py \
 ```
 
 **Outputs:**
-- `outputs/e2e_results_*.json`: Training logs
-- `models/e2e_*/`: Checkpoints for each configuration
+- `outputs/pao_results_*.json`: Training logs
+- `models/pao_*/`: Checkpoints for each configuration
 
 ### Step 5: Scenario Experiments
 
 ```bash
-# Experiment 1: Benchmark-based
-python scripts/04_script1.py
+# Experiment 1: Counterfactual analysis with Sharpe-based portfolios
+python scripts/04_scenario1.py
 
-# Experiment 2: Utility-based
-python scripts/05_script2.py
+# Experiment 2: Counterfactual analysis with utility-based portfolios
+python scripts/05_scenario2.py
 
 # Experiment 3: Model contrast (summer child vs. winter wolf)
-python scripts/06_script3.py
+python scripts/06_scenario3.py
 ```

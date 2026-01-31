@@ -5,6 +5,8 @@ scipy>=1.7.0
 
 # Deep learning
 torch>=1.10.0
+jax>=0.4.0
+jaxlib>=0.4.0
 
 # Optimization
 cvxpy>=1.2.0

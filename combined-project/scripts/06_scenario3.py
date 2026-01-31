@@ -4,12 +4,12 @@ import torch
 import pandas as pd
 from typing import Optional, List
 
-from src.modules.e2e_model_defs import E2EPortfolioModel, load_e2e_model_from_run
+from src.modules.pao_model_defs import PAOPortfolioModel, load_pao_model_from_run
 
 from src.modules.probe_eval import AllocationPipeline, G_contrast_function, evaluate, robust_entropy, traj_outputs
 from end2endportfolio.src import langevin
 from src.modules.sigma import data, construct_C2
-from src.utils.utils import sqrt_decay
+from src.utils.helper_functions import sqrt_decay
 
 def print_traj(m_traj:torch.Tensor):
     df = pd.DataFrame(m_traj, columns=data["macro_final"].columns[2:])
@@ -23,13 +23,13 @@ DATE = 202001
 LAMBDA = 10.
 KAPPA = 1.0
 
-run_dir_summer_child = "./e2e_summerchild_vs_winterwolf_bundle/scenario=summer_child_no_dotcom_pre2007/runs_oneconfig"+\
+run_dir_summer_child = "./pao_summerchild_vs_winterwolf_bundle/scenario=summer_child_no_dotcom_pre2007/runs_oneconfig"+\
 f"/scenario=summer_child_no_dotcom_pre2007__topk=30__loss=utility__gamma={LAMBDA}__kappa={KAPPA}__omega=diagSigma__mu=zscore"
-summer_model, summer_cfg = load_e2e_model_from_run(run_dir_summer_child)
+summer_model, summer_cfg = load_pao_model_from_run(run_dir_summer_child)
 
-run_dir_winter_wolf = "./e2e_summerchild_vs_winterwolf_bundle/scenario=winter_wolf_seen_2008_in_train/runs_oneconfig"+\
+run_dir_winter_wolf = "./pao_summerchild_vs_winterwolf_bundle/scenario=winter_wolf_seen_2008_in_train/runs_oneconfig"+\
 f"/scenario=winter_wolf_seen_2008_in_train__topk=30__loss=utility__gamma={LAMBDA}__kappa={KAPPA}__omega=diagSigma__mu=zscore"
-winter_model, winter_cfg = load_e2e_model_from_run(run_dir_winter_wolf)
+winter_model, winter_cfg = load_pao_model_from_run(run_dir_winter_wolf)
 
 
 meta_train, meta_val, meta_test = strict_metadata_alignment(data['metadata'], train_end=TRAIN_END, val_end=VAL_END)

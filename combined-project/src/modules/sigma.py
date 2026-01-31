@@ -27,10 +27,10 @@ from typing import List, Tuple
 import numpy as np
 import pandas as pd
 
-from src.utils.utils import make_psd_np
+from src.utils.helper_functions import make_psd_np
 from src.modules.dataloaders import DataStorageEngine
 
-from src.modules.e2e_model_defs import E2EPortfolioModel
+from src.modules.pao_model_defs import PAOPortfolioModel
 import torch
 READY_DATA_DIR = "./Data/final_data"
 
@@ -265,7 +265,7 @@ data = storage.load_dataset()
 
 
 def construct_C(
-    model   : E2EPortfolioModel,
+    model   : PAOPortfolioModel,
     df      : pd.DataFrame, #Considered to contain all the interaction terms
     meta_df : pd.DataFrame,
     date    : int, #in yyyymm format

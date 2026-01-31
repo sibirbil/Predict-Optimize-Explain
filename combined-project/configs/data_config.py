@@ -72,7 +72,7 @@ FNN_MODEL_DIR = MODELS_DIR / "fnn_v1"
 # Output directories
 OUTPUTS_DIR = BASE_DIR / "outputs"
 PTO_OUTPUTS_DIR = OUTPUTS_DIR / "pto"
-E2E_OUTPUTS_DIR = OUTPUTS_DIR / "e2e"
+PAO_OUTPUTS_DIR = OUTPUTS_DIR / "pao"
 
 # ============================================================
 # Default Input File Names

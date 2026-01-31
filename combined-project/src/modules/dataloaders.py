@@ -4,7 +4,7 @@ from torch.utils.data import IterableDataset, DataLoader
 from pathlib import Path
 import pandas as pd
 import numpy as np
-from src.modules.e2e_model_defs import E2EPortfolioModel
+from src.modules.pao_model_defs import PAOPortfolioModel
 
 
 TRAIN_END = 200512

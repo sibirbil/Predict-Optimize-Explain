@@ -1,7 +1,7 @@
 """
-E2E Training Configuration.
+PAO Training Configuration.
 
-Configuration for End-to-End differentiable portfolio optimization including:
+Configuration for Predict-and-Optimize differentiable portfolio optimization including:
 - Universe size sweeps
 - Training hyperparameters
 - Loss functions
@@ -13,15 +13,15 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 
 @dataclass
-class E2EConfig:
+class PAOConfig:
     """
-    Configuration for E2E portfolio optimization training.
+    Configuration for PAO portfolio optimization training.
 
     Attributes:
         Paths:
             data_dir: Directory with processed data
             fnn_dir: Directory with pre-trained FNN model
-            out_dir: Output directory for E2E results
+            out_dir: Output directory for PAO results
 
         Data Splits:
             train_end: Training period end (YYYYMM)
@@ -91,7 +91,7 @@ class E2EConfig:
     # ============================================================
     data_dir: str = "./data/processed/ready_data"
     fnn_dir: str = "./models/fnn_v1"
-    out_dir: str = "./outputs/e2e/results"
+    out_dir: str = "./outputs/pao/results"
 
     # ============================================================
     # Data Splits
@@ -208,17 +208,17 @@ class E2EConfig:
     auto_retrain_on_selection_mismatch: bool = True
 
 
-def get_default_config() -> E2EConfig:
+def get_default_config() -> PAOConfig:
     """
     Get default E2E configuration.
 
     Returns:
-        E2EConfig with default parameters
+        PAOConfig with default parameters
     """
-    return E2EConfig()
+    return PAOConfig()
 
 
-def get_config_with_overrides(**kwargs) -> E2EConfig:
+def get_config_with_overrides(**kwargs) -> PAOConfig:
     """
     Get E2E configuration with custom overrides.
 
@@ -226,7 +226,7 @@ def get_config_with_overrides(**kwargs) -> E2EConfig:
         **kwargs: Configuration parameters to override
 
     Returns:
-        E2EConfig with specified overrides
+        PAOConfig with specified overrides
 
     Example:
         config = get_config_with_overrides(
@@ -235,7 +235,7 @@ def get_config_with_overrides(**kwargs) -> E2EConfig:
             loss_types=["utility"]
         )
     """
-    config = E2EConfig()
+    config = PAOConfig()
     for key, value in kwargs.items():
         if hasattr(config, key):
             setattr(config, key, value)

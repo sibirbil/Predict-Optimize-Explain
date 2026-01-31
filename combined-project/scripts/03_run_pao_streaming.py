@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 """
-Memory-Efficient E2E Training Script using Streaming Data Loading.
+Memory-Efficient PAO Training Script using Streaming Data Loading.
 
-Trains End-to-End portfolio models without loading all data at once.
+Trains Predict-and-Optimize portfolio models without loading all data at once.
 
 Workflow:
 1. Load FNN model
 2. Stream data to build month-level cache incrementally
-3. Train E2E models using cached month data
+3. Train PAO models using cached month data
 4. Evaluate on test set
 5. Save results
 
 Usage:
-    python scripts/03_run_e2e_streaming.py
-    python scripts/03_run_e2e_streaming.py --topk 50 --loss-type utility --lambda 10.0
+    python scripts/03_run_pao_streaming.py
+    python scripts/03_run_pao_streaming.py --topk 50 --loss-type utility --lambda 10.0
 """
 import argparse
 import sys
@@ -30,7 +30,7 @@ import torch
 
 from data.iterable_dataset import create_monthly_iterator
 from models.fnn import load_fnn_from_dir
-from models.e2e_portfolio import E2EPortfolioModel
+from models.pao_portfolio import PAOPortfolioModel
 from models.score_network import compute_mu_reference
 from optimization.risk import make_psd, sigma_vol_from_cov
 from cache.dataset import MonthCacheDataset
@@ -38,13 +38,13 @@ from training.trainer import train_one_run
 from training.evaluation import eval_dataset, backtest_and_save
 from utils.io import save_json, load_json
 from utils.dates import shift_yyyymm
-from configs.e2e_config import E2EConfig, get_config_with_overrides
+from configs.pao_config import PAOConfig, get_config_with_overrides
 
 
 def parse_args():
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
-        description='Train E2E with streaming data loading'
+        description='Train PAO with streaming data loading'
     )
 
     # Config file
@@ -254,9 +254,9 @@ def main():
     # Load configuration
     if args.config:
         config_dict = load_json(Path(args.config))
-        config = E2EConfig(**config_dict)
+        config = PAOConfig(**config_dict)
     else:
-        config = E2EConfig()
+        config = PAOConfig()
 
     # Override with command-line arguments
     overrides = {}
@@ -292,7 +292,7 @@ def main():
 
     if args.verbose:
         print("=" * 78)
-        print("E2E TRAINING - STREAMING DATA LOADING")
+        print("PAO TRAINING - STREAMING DATA LOADING")
         print("=" * 78)
         print(f"\nConfiguration:")
         print(f"  Device: {config.device}")
@@ -395,10 +395,10 @@ def main():
         print(f"  Test months: {len(test_ds)}")
 
     # ========================================
-    # Step 4: Train E2E models
+    # Step 4: Train PAO models
     # ========================================
     if args.verbose:
-        print("\nStep 4: Training E2E models...")
+        print("\nStep 4: Training PAO models...")
 
     out_dir = Path(config.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -422,7 +422,7 @@ def main():
 
                         # Create model
                         input_dim = train_ds[0]['mu_pred'].shape[0]
-                        model = E2EPortfolioModel(
+                        model = PAOPortfolioModel(
                             input_dim=input_dim,
                             hidden_dims=config.hidden_dims,
                             lambda_=lambda_,
@@ -481,7 +481,7 @@ def main():
     if args.verbose:
         print("\nStep 5: Saving results...")
 
-    save_json(all_results, out_dir / 'e2e_streaming_results.json', convert_np=True)
+    save_json(all_results, out_dir / 'pao_streaming_results.json', convert_np=True)
 
     # Create summary dataframe
     summary_rows = []
@@ -497,14 +497,14 @@ def main():
         summary_rows.append(row)
 
     summary_df = pd.DataFrame(summary_rows)
-    summary_df.to_csv(out_dir / 'e2e_streaming_summary.csv', index=False)
+    summary_df.to_csv(out_dir / 'pao_streaming_summary.csv', index=False)
 
     if args.verbose:
         print("\n" + "=" * 78)
         print("SUMMARY")
         print("=" * 78)
         print(summary_df.to_string(index=False))
-        print(f"\n✓ E2E streaming training complete!")
+        print(f"\n✓ PAO streaming training complete!")
         print(f"  Output directory: {out_dir}")
         print("=" * 78)
 

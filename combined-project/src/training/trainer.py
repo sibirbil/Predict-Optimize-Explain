@@ -15,10 +15,10 @@ import torch.optim as optim
 
 try:
     from ..utils.io import save_json
-    from ..models.e2e_portfolio import E2EPortfolioModel
+    from ..models.pao_portfolio import PAOPortfolioModel
 except ImportError:
     from utils.io import save_json
-    from models.e2e_portfolio import E2EPortfolioModel
+    from models.pao_portfolio import PAOPortfolioModel
 
 
 def selection_metric_for_loss(loss_type: str) -> Tuple[str, str]:
@@ -47,13 +47,13 @@ def train_one_run(
     run_dir: Path,
     train_ds,  # MonthCacheDataset
     val_ds,    # MonthCacheDataset
-    model: E2EPortfolioModel,
-    config,    # E2EConfig or config object with needed attributes
+    model: PAOPortfolioModel,
+    config,    # PAOConfig or config object with needed attributes
     loss_type: str,
     eval_fn=None  # Optional: pass eval_dataset function to avoid circular import
 ) -> Dict[str, Any]:
     """
-    Train E2E portfolio model with early stopping and checkpoint selection.
+    Train PAO portfolio model with early stopping and checkpoint selection.
 
     Training strategy depends on loss_type:
     - 'return': Maximize average monthly portfolio return
@@ -64,7 +64,7 @@ def train_one_run(
         run_dir: Directory to save checkpoints and logs
         train_ds: Training dataset (MonthCacheDataset)
         val_ds: Validation dataset (MonthCacheDataset)
-        model: E2EPortfolioModel instance
+        model: PAOPortfolioModel instance
         config: Configuration object with attributes:
             - lr: Learning rate
             - weight_decay: Weight decay for AdamW

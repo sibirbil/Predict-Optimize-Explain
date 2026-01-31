@@ -18,7 +18,7 @@ except ImportError:
 
 class MonthCacheDataset(torch.utils.data.Dataset):
     """
-    PyTorch Dataset for E2E month-level cache.
+    PyTorch Dataset for PAO month-level cache.
 
     Each sample represents one month with:
     - X: Feature matrix (n_assets, n_features)
@@ -30,7 +30,7 @@ class MonthCacheDataset(torch.utils.data.Dataset):
     - assets: Asset identifiers
 
     Usage:
-        cache_dir = Path('outputs/e2e/cache/topk_50/train')
+        cache_dir = Path('outputs/pao/cache/topk_50/train')
         ds = MonthCacheDataset(cache_dir)
         sample = ds[0]  # Get first month
         X = sample['X']  # torch.Tensor of shape (50, n_features)

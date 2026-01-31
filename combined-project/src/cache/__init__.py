@@ -1,7 +1,7 @@
 """
 E2E Cache System.
 
-Month-level caching for E2E training with pre-computed:
+Month-level caching for PAO training with pre-computed:
 - Universe selection (top-k assets)
 - FNN predictions
 - EWMA covariance matrices
