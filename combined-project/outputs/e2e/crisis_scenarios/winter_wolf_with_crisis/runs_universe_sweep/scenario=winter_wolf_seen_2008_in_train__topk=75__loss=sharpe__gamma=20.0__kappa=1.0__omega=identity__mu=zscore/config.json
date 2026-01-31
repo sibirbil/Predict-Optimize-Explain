@@ -1,0 +1,62 @@
+{
+  "scenario": "winter_wolf_seen_2008_in_train",
+  "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=75__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+  "loss_type": "sharpe",
+  "gamma": 20.0,
+  "kappa": 1.0,
+  "omega_mode": "identity",
+  "mu_transform": "zscore",
+  "mu_ref_mode": "winsor_std",
+  "mu_ref": 0.1500332942369057,
+  "mu_scale": 0.05,
+  "mu_cap": 0.1,
+  "topk": 75,
+  "lookback": 60,
+  "preselect_factor": 3,
+  "lam": 0.94,
+  "shrink": 0.1,
+  "ridge": 1e-06,
+  "cache_version": "v2.0",
+  "feature_cols_sha1": "14dae627a77c86b916d666ce72f7349fa058ca44",
+  "fnn_dir": "/content/drive/MyDrive/POE/models/fnn_v1",
+  "scenario_parts": {
+    "name": "winter_wolf_seen_2008_in_train",
+    "train_parts": [
+      {
+        "base": "train",
+        "start": null,
+        "end": 200512,
+        "exclude": null
+      },
+      {
+        "base": "val",
+        "start": 200601,
+        "end": 201212,
+        "exclude": null
+      }
+    ],
+    "val_parts": [
+      {
+        "base": "val",
+        "start": 201301,
+        "end": 201512,
+        "exclude": null
+      }
+    ],
+    "test_parts": [
+      {
+        "base": "test",
+        "start": null,
+        "end": null,
+        "exclude": null
+      }
+    ]
+  },
+  "input_dim": 1400,
+  "hidden_dims": [
+    32,
+    16,
+    8
+  ],
+  "dropout": 0.5
+}

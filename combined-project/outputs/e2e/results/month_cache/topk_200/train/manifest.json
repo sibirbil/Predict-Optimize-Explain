@@ -1,0 +1,17 @@
+{
+  "cache_version": "v2.0",
+  "split": "train",
+  "id_col": "permno",
+  "fnn_dir": "./models/fnn_v1",
+  "feature_cols_sha1": "51a2389e5aefa0dc18f270f69dfbf6b4870e35e7",
+  "topk": 200,
+  "preselect_factor": 3,
+  "lookback": 60,
+  "lam": 0.94,
+  "shrink": 0.1,
+  "ridge": 1e-06,
+  "clip_lower": -0.99,
+  "n_prepared": 0,
+  "n_skipped": 312,
+  "feature_dim": 1400
+}
