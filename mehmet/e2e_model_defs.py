@@ -62,7 +62,7 @@ class AssetPricingFNN(nn.Module):
         x = self.layer1(x)
         x = self.layer2(x)
         x = self.layer3(x)
-        return self.output(x)
+        return self.output(x).squeeze()
 
 
 def load_fnn_from_dir(

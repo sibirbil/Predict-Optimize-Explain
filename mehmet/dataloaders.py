@@ -4,6 +4,11 @@ from torch.utils.data import IterableDataset, DataLoader
 from pathlib import Path
 import pandas as pd
 import numpy as np
+from mehmet.e2e_model_defs import E2EPortfolioModel
+
+
+TRAIN_END = 200512
+VAL_END   = 201512
 
 class ParquetIterableDataset(IterableDataset):
     def __init__(self, features_path, labels_path, batch_size=16384, shuffle = True):
@@ -35,16 +40,21 @@ class ParquetIterableDataset(IterableDataset):
             for xi, yi in zip(X, y):
                 yield xi, yi
 
-dataset = ParquetIterableDataset('./Data/final_data/X_train.parquet',
-                                 './Data/final_data/y_train.parquet', shuffle = True)
-trainloader = DataLoader(dataset, batch_size=256, shuffle= False)
-val_dataset = ParquetIterableDataset('./Data/final_data/X_val.parquet',
-                                      './Data/final_data/y_val.parquet', shuffle = False)
-val_loader = DataLoader(val_dataset, batch_size= 1024, shuffle = False)
 
-test_dataset = ParquetIterableDataset('./Data/final_data/X_test.parquet',
+def getIterableDatasets():
+    dataset = ParquetIterableDataset('./Data/final_data/X_train.parquet',
+                                 './Data/final_data/y_train.parquet', shuffle = True)
+    trainloader = DataLoader(dataset, batch_size=256, shuffle= False)
+    val_dataset = ParquetIterableDataset('./Data/final_data/X_val.parquet',
+                                      './Data/final_data/y_val.parquet', shuffle = False)
+    val_loader = DataLoader(val_dataset, batch_size= 1024, shuffle = False)
+
+    test_dataset = ParquetIterableDataset('./Data/final_data/X_test.parquet',
                                       './Data/final_data/y_test.parquet', shuffle = False)
-test_loader = DataLoader(test_dataset, batch_size= 1024, shuffle = False)
+    test_loader = DataLoader(test_dataset, batch_size= 1024, shuffle = False)
+    return {'dataset':dataset, 'trainloader':trainloader, 
+            'val_dataset':val_dataset, 'val_loader':val_loader,
+            'test_dataset':test_dataset, 'test_loader':test_loader}
 
 
 class DataStorageEngine:
@@ -74,8 +84,7 @@ class DataStorageEngine:
         return loaded_dict
     
 
-TRAIN_END = 200512
-VAL_END   = 201512
+
 
 def strict_metadata_alignment(metadata: pd.DataFrame, train_end=TRAIN_END, val_end=VAL_END):
 
@@ -95,4 +104,3 @@ def strict_metadata_alignment(metadata: pd.DataFrame, train_end=TRAIN_END, val_e
 
     return meta_train, meta_val, meta_test
 
-    

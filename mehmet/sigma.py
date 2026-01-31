@@ -30,6 +30,11 @@ import pandas as pd
 from mehmet.utils import make_psd_np
 from mehmet.dataloaders import DataStorageEngine
 
+from mehmet.e2e_model_defs import E2EPortfolioModel
+import torch
+READY_DATA_DIR = "./Data/final_data"
+
+
 # -----------------------------------------------------------------------------
 # Helpers
 # -----------------------------------------------------------------------------
@@ -245,3 +250,96 @@ if __name__ == "__main__":
     print("Assets used:", used_assets)
     print("Check (U^T U) approx Sigma:",
           float(np.max(np.abs((U.T @ U).astype(np.float64) - Sigma))))
+
+
+    
+# --- 2. LOAD THE DATA ---
+
+# A. Load
+# Change Path
+
+
+storage = DataStorageEngine(storage_dir="./Data/final_data", load_train=False)
+data = storage.load_dataset()
+
+
+
+def construct_C(
+    model   : E2EPortfolioModel,
+    df      : pd.DataFrame, #Considered to contain all the interaction terms
+    meta_df : pd.DataFrame,
+    date    : int, #in yyyymm format
+    K       : int, # the firm characteristics of top/bottom K predictions are given 
+    bestK   : bool = True #otherwise we take the worst K
+    ):
+    dd = df[meta_df['yyyymm']==date] #date data
+    dm = meta_df[meta_df['yyyymm']==date] #date meta, so that we capture firm ids
+    dd_tensor = torch.tensor(dd.to_numpy())
+    with torch.no_grad():
+        predictions = model.predictor(dd_tensor)
+    top3Kindices = torch.argsort(predictions, descending=bestK)[:3*K]
+    firm_ids = dm.iloc[top3Kindices]['permno']
+    firm_rets = dm.iloc[top3Kindices]['excess_ret']
+    permnos = [int(a) for a in firm_ids]
+    firm_chars = dd_tensor[top3Kindices][:, :140]
+    Sigma, U, used_assets = build_sigma_and_U_from_ready_data(
+        ready_data_dir=READY_DATA_DIR,
+        permnos=permnos,
+        t=date,
+        lookback=60,
+        lam=0.94,
+        shrink=0.10,
+        ridge=1e-6,
+        clip_lower=-0.99,
+    )
+    positions = [i for (i,val) in enumerate(firm_ids) if val in used_assets]
+    C_t = firm_chars[positions[:K]]
+    rets_t = torch.tensor(firm_rets.iloc[positions].iloc[:K].to_numpy())
+    return torch.tensor(Sigma[:K,:K], dtype = torch.float32), C_t, rets_t, used_assets[:K]
+
+from typing import Dict, Union
+
+def construct_C2(
+    data : Dict[str, pd.DataFrame], #Considered to contain all the interaction terms
+    date    : Union[float, int],
+    K       : int
+):
+    LB = 60 #lookback
+    meta_df = data['metadata']
+    meta_df['_orig_index'] = meta_df.index
+    g = meta_df[meta_df['yyyymm'].between(shift_yyyymm(date, -LB), shift_yyyymm(date,-1))].groupby('permno')['excess_ret']
+
+    valid_today = meta_df.loc[meta_df['yyyymm'] == date, 'permno']
+
+    permnos = (
+        g.mean()
+        .where(g.count() == LB)              # full lookback
+        .loc[lambda x: x.index.isin(valid_today)]  # exists at date
+        .sort_values(ascending=False, na_position='last')
+        .head(K).index
+    )
+    
+    meta_df_pn = meta_df.set_index('permno')
+    max_returners = meta_df_pn[meta_df_pn['yyyymm']==date].loc[permnos]
+    df = data['X_test']
+    dd = df.loc[max_returners['_orig_index']]
+    
+    Sigma, U, used_assets = build_sigma_and_U_from_ready_data(
+        ready_data_dir=READY_DATA_DIR,
+        permnos=permnos,
+        t=date,
+        lookback=LB,
+        lam=0.94,
+        shrink=0.10,
+        ridge=1e-6,
+        clip_lower=-0.99,
+    )
+    assert len(used_assets)== K, "number of used assets is different"
+
+    dd_tensor = torch.tensor(dd.to_numpy())
+    C_t = dd_tensor[:, :140]
+    rets_t = torch.tensor(max_returners['excess_ret'].to_numpy())
+    return torch.tensor(Sigma, dtype = torch.float32), C_t, rets_t, permnos.tolist()
+
+    
+    
