@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository implements traditional **Predict-Then-Optimize (PTO)** with **predict-and-optimize differentiable optimization (PAO)**, and providing **scenario generation**.
+This repository implements traditional **Predict-Then-Optimize (PTO)** with **predict-and-optimize (PAO)** decision pipelines. We also provide an approach based on **sample generation** for explaining different decision pipelines.
 
 ## Usage
 
