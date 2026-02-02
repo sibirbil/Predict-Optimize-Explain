@@ -1,0 +1,3 @@
+run_name,scenario,topk,loss,lambda,kappa,omega,mu_transform,test_sharpe,best_val_metric
+scenario=summer_child_no_dotcom_pre2007__topk=200__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore,summer_child_no_dotcom_pre2007,200,utility,10.0,1.0,diagSigma,zscore,0.8002970348634041,0.2722016353509389
+scenario=summer_child_no_dotcom_pre2007__topk=30__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore,summer_child_no_dotcom_pre2007,30,utility,10.0,1.0,diagSigma,zscore,0.9223060992338761,0.259960868046619

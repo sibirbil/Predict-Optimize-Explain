@@ -1,0 +1,66 @@
+{
+  "scenario": "summer_child_no_dotcom_pre2007",
+  "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=85__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+  "loss_type": "utility",
+  "gamma": 10.0,
+  "kappa": 1.0,
+  "omega_mode": "diagSigma",
+  "mu_transform": "zscore",
+  "mu_ref_mode": "winsor_std",
+  "mu_ref": 0.14887323035519384,
+  "mu_scale": 0.05,
+  "mu_cap": 0.1,
+  "topk": 85,
+  "lookback": 60,
+  "preselect_factor": 3,
+  "lam": 0.94,
+  "shrink": 0.1,
+  "ridge": 1e-06,
+  "cache_version": "v2.0",
+  "feature_cols_sha1": "14dae627a77c86b916d666ce72f7349fa058ca44",
+  "fnn_dir": "/content/drive/MyDrive/POE/models/fnn_v1",
+  "scenario_parts": {
+    "name": "summer_child_no_dotcom_pre2007",
+    "train_parts": [
+      {
+        "base": "train",
+        "start": null,
+        "end": 200512,
+        "exclude": [
+          [
+            200003,
+            200212
+          ]
+        ]
+      }
+    ],
+    "val_parts": [
+      {
+        "base": "val",
+        "start": 200601,
+        "end": 200612,
+        "exclude": [
+          [
+            200003,
+            200212
+          ]
+        ]
+      }
+    ],
+    "test_parts": [
+      {
+        "base": "test",
+        "start": null,
+        "end": null,
+        "exclude": null
+      }
+    ]
+  },
+  "input_dim": 1400,
+  "hidden_dims": [
+    32,
+    16,
+    8
+  ],
+  "dropout": 0.5
+}
