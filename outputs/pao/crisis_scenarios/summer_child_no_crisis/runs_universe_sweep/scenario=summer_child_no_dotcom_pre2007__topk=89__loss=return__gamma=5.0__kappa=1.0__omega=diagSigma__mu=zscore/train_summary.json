@@ -1,0 +1,6 @@
+{
+  "loss_type": "return",
+  "selection_metric": "mean_a",
+  "best_val_metric": 0.4593005453934893,
+  "final_epoch": 50
+}

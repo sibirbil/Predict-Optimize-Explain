@@ -1,0 +1,6 @@
+{
+  "loss_type": "utility",
+  "selection_metric": "util_a",
+  "best_val_metric": -0.02353818633710034,
+  "final_epoch": 12
+}

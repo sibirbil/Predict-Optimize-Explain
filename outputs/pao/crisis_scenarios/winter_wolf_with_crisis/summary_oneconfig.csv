@@ -1,0 +1,3 @@
+run_name,scenario,topk,loss,lambda,kappa,omega,mu_transform,test_sharpe,best_val_metric
+scenario=winter_wolf_seen_2008_in_train__topk=200__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore,winter_wolf_seen_2008_in_train,200,utility,10.0,1.0,diagSigma,zscore,0.8578498138756904,0.04874612037868549
+scenario=winter_wolf_seen_2008_in_train__topk=30__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore,winter_wolf_seen_2008_in_train,30,utility,10.0,1.0,diagSigma,zscore,1.0287519915733006,0.09399822346555689

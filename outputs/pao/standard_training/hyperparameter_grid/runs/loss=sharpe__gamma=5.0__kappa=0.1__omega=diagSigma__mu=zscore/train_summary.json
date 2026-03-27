@@ -1,0 +1,6 @@
+{
+  "loss_type": "sharpe",
+  "selection_metric": "sharpe_a",
+  "best_val_metric": 0.4118504655083345,
+  "final_epoch": 22
+}

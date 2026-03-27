@@ -1,0 +1,30 @@
+{
+  "run_name": "loss=return__gamma=20.0__kappa=0.1__omega=diagSigma__mu=zscore",
+  "loss_type": "return",
+  "gamma": 20.0,
+  "kappa": 0.1,
+  "omega_mode": "diagSigma",
+  "mu_transform": "zscore",
+  "mu_ref_mode": "winsor_std",
+  "mu_ref": 0.15494005599883587,
+  "mu_scale": 0.05,
+  "mu_cap": 0.1,
+  "topk": 200,
+  "lookback": 60,
+  "preselect_factor": 3,
+  "lam": 0.94,
+  "shrink": 0.1,
+  "ridge": 1e-06,
+  "cache_version": "v2.0",
+  "feature_cols_sha1": "14dae627a77c86b916d666ce72f7349fa058ca44",
+  "fnn_dir": "/content/drive/MyDrive/POE/models/fnn_v1",
+  "hidden_dims": [
+    32,
+    16,
+    8
+  ],
+  "dropout": 0.5,
+  "input_dim": 1400,
+  "predictor_class": "E2EScoreNetwork",
+  "portfolio_model_class": "E2EPortfolioModel"
+}

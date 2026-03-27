@@ -1,0 +1,16 @@
+run_name,scenario,topk,loss,lambda,kappa,omega,mu_transform,test_sharpe,best_val_metric
+scenario=winter_wolf_seen_2008_in_train__topk=21__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore,winter_wolf_seen_2008_in_train,21,return,5.0,1.0,diagSigma,zscore,0.7630235624773671,0.07070437244450054
+scenario=winter_wolf_seen_2008_in_train__topk=21__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore,winter_wolf_seen_2008_in_train,21,sharpe,20.0,1.0,identity,zscore,1.1107811557850293,1.2770173262127669
+scenario=winter_wolf_seen_2008_in_train__topk=21__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore,winter_wolf_seen_2008_in_train,21,utility,10.0,1.0,diagSigma,zscore,0.781893363352851,0.1182298909019058
+scenario=winter_wolf_seen_2008_in_train__topk=24__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore,winter_wolf_seen_2008_in_train,24,return,5.0,1.0,diagSigma,zscore,1.120316766940861,0.33070469344966114
+scenario=winter_wolf_seen_2008_in_train__topk=24__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore,winter_wolf_seen_2008_in_train,24,sharpe,20.0,1.0,identity,zscore,1.214349516099753,1.0702105754149398
+scenario=winter_wolf_seen_2008_in_train__topk=24__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore,winter_wolf_seen_2008_in_train,24,utility,10.0,1.0,diagSigma,zscore,1.086713376010038,-0.005342576497544845
+scenario=winter_wolf_seen_2008_in_train__topk=68__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore,winter_wolf_seen_2008_in_train,68,return,5.0,1.0,diagSigma,zscore,0.8603728275428676,0.38457736710552126
+scenario=winter_wolf_seen_2008_in_train__topk=68__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore,winter_wolf_seen_2008_in_train,68,sharpe,20.0,1.0,identity,zscore,1.3153256230705823,1.6425549148772893
+scenario=winter_wolf_seen_2008_in_train__topk=68__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore,winter_wolf_seen_2008_in_train,68,utility,10.0,1.0,diagSigma,zscore,1.18481800383027,0.057302734892194465
+scenario=winter_wolf_seen_2008_in_train__topk=75__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore,winter_wolf_seen_2008_in_train,75,return,5.0,1.0,diagSigma,zscore,1.0657436633411295,0.10890880754838386
+scenario=winter_wolf_seen_2008_in_train__topk=75__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore,winter_wolf_seen_2008_in_train,75,sharpe,20.0,1.0,identity,zscore,1.2729880787975676,1.707862932583319
+scenario=winter_wolf_seen_2008_in_train__topk=75__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore,winter_wolf_seen_2008_in_train,75,utility,10.0,1.0,diagSigma,zscore,0.6713035165092517,-0.03019146795850247
+scenario=winter_wolf_seen_2008_in_train__topk=93__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore,winter_wolf_seen_2008_in_train,93,return,5.0,1.0,diagSigma,zscore,0.8421285836086181,0.16982789370619383
+scenario=winter_wolf_seen_2008_in_train__topk=93__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore,winter_wolf_seen_2008_in_train,93,sharpe,20.0,1.0,identity,zscore,1.1315542689859541,1.6319187985756411
+scenario=winter_wolf_seen_2008_in_train__topk=93__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore,winter_wolf_seen_2008_in_train,93,utility,10.0,1.0,diagSigma,zscore,1.2561900782875728,0.102381583439031
