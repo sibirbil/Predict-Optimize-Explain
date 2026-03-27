@@ -1,0 +1,28 @@
+{
+  "data_path": "universe_500/macro_final.parquet",
+  "date_column": "yyyymm",
+  "macro_columns": [
+    "dp",
+    "ep",
+    "bm",
+    "ntis",
+    "tbl",
+    "tms",
+    "dfy",
+    "svar",
+    "infl"
+  ],
+  "n_months_used": 540,
+  "sample_start": 198001,
+  "sample_end": 202412,
+  "n_transitions": 539,
+  "sigma_jitter": 1e-10,
+  "sigma_logdet": -90.99093370861165,
+  "reference_month": 202412,
+  "mahalanobis_mean": 2.502306222018265,
+  "mahalanobis_median": 2.080384936773917,
+  "mahalanobis_p95": 5.215058535806491,
+  "recursive_warmup_months": 120,
+  "recursive_forecast_n_months": 420,
+  "regularizer_note": "E_var = 0.5*(m_next-mu)' Sigma^{-1} (m_next-mu) in generation objective."
+}
