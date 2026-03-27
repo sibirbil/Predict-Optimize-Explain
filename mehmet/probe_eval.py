@@ -8,6 +8,30 @@ from math import sqrt
 
 import pandas as pd
 
+
+import numpy as np
+Tensor = torch.Tensor
+
+VAR_DIR = './VAR1Regularizer/artifacts/var1/'
+Sigma = np.load(VAR_DIR + "innovation_covariance_Sigma.npy")
+Sigma_inv = np.load(VAR_DIR + "innovation_covariance_inv.npy")
+c = np.load(VAR_DIR + "intercept_c.npy")
+A = np.load(VAR_DIR + "transition_A.npy")
+
+def mahalonobis_reg(A, c, Sigma_inv, anchor):
+    A = torch.tensor(A)
+    c = torch.tensor(c)
+    Sigma_inv = torch.tensor(Sigma_inv)
+    anchor = torch.tensor(anchor)
+    
+    def regularizer(x:Tensor):
+        diff = x - (A @ anchor + c)
+        md2 = diff.T @ Sigma_inv @ diff
+        return md2
+    
+    return regularizer
+
+
 @dataclass
 class AllocationPipeline():
     model : E2EPortfolioModel #we need this so that the model has a predictor method as well as _transform_mu methods
@@ -61,7 +85,8 @@ def G_function(
     pi.model.eval()
     cvxpylayer = CvxpyLayer(pi.problem, parameters=pi.problem.parameters(), variables=pi.problem.variables())
     # scale so that the deviation in each coordinate can be measured in the same scale 
-    scale = torch.tensor([2.5856, 3.7924, 1.5339, 0.1413, 0.2326, 0.1126, 0.0372, 0.0844, 0.0414])
+    # scale = torch.tensor([2.5856, 3.7924, 1.5339, 0.1413, 0.2326, 0.1126, 0.0372, 0.0844, 0.0414])
+    reg_fn = mahalonobis_reg(A, c, Sigma_inv, anchor)
 
     if score_function == "PortfolioReturn":
         def G(m:torch.Tensor):
@@ -70,7 +95,8 @@ def G_function(
             preds = pi.model.predictor(interactions)
             preds_std = pi.model._transform_mu(preds) #standardize predictions with zscores (or model.mu_transform)            
             w_star, = cvxpylayer(preds_std)
-            reg = l2reg*((m - anchor).div(scale).square().sum())
+            #reg = l2reg*((m - anchor).div(scale).square().sum())
+            reg = l2reg*reg_fn(m)
             return - (w_star @ rets_t) + reg
         
     elif score_function == "Sharpe":
@@ -82,7 +108,8 @@ def G_function(
             w_star, = cvxpylayer(preds_std)
             returns = w_star @ rets_t
             vol = torch.sqrt(w_star @ pi.Sigma @ w_star)*sqrt(12)
-            reg = l2reg*((m - anchor).div(scale).square().sum())
+            # reg = l2reg*((m - anchor).div(scale).square().sum())
+            reg = l2reg*reg_fn(m)
             return - returns/vol + reg
         
     elif isinstance(score_function,float): #how we detect the benchmark
@@ -94,7 +121,8 @@ def G_function(
             preds_std = pi.model._transform_mu(preds)
             w_star, = cvxpylayer(preds_std)
             returns = w_star @ rets_t
-            reg = l2reg*((m - anchor).div(scale).square().sum())
+            #reg = l2reg*((m - anchor).div(scale).square().sum())
+            reg = l2reg*reg_fn(m)
             return (100*(returns - b))**2 + reg
         
     elif score_function=="Entropy": #encourages diverse networks
@@ -104,11 +132,12 @@ def G_function(
             preds = pi.model.predictor(interactions)
             preds_std = pi.model._transform_mu(preds)
             w_star, = cvxpylayer(preds_std)
-            reg = l2reg*((m - anchor).div(scale).square().sum())
+            # reg = l2reg*((m - anchor).div(scale).square().sum())
+            reg = l2reg*reg_fn(m)
             return -robust_entropy(w_star) + reg
         
     else:
-        ValueError("score_function should be one of PortfolioReturn/Sharpe or a float")
+        ValueError("score_function should be one of PortfolioReturn/Sharpe/Entropy or a float")
 
     def gradG(m:torch.Tensor):
         m.requires_grad_(True)
@@ -129,7 +158,8 @@ def G_contrast_function(
     l2reg       : float = 0.
 ):
     
-    scale = torch.tensor([2.5856, 3.7924, 1.5339, 0.1413, 0.2326, 0.1126, 0.0372, 0.0844, 0.0414])
+    #scale = torch.tensor([2.5856, 3.7924, 1.5339, 0.1413, 0.2326, 0.1126, 0.0372, 0.0844, 0.0414])
+    reg_fn = mahalonobis_reg(A, c, Sigma_inv, anchor)
 
     pi1.model.eval()
     pi2.model.eval()
@@ -147,7 +177,8 @@ def G_contrast_function(
             preds2_std = pi2.model._transform_mu(preds2)
             w1_star, = cvxpylayer1(preds1_std)
             w2_star, = cvxpylayer2(preds2_std)
-            reg = l2reg*((m - anchor).div(scale).square().sum())
+            #reg = l2reg*((m - anchor).div(scale).square().sum())
+            reg = l2reg*reg_fn(m)
             return torch.exp( - (w1_star @ rets_t - w2_star @ rets_t)**2) + reg
 
     elif contrast_function == "similar_return-distinct_Sharpe":
@@ -164,7 +195,8 @@ def G_contrast_function(
             pret2 = w2_star @ rets_t
             sharpe1 = sqrt(12)*pret1/torch.sqrt(w1_star@ pi1.Sigma @ w1_star) 
             sharpe2 = sqrt(12)*pret2/torch.sqrt(w2_star @pi2.Sigma @ w2_star)
-            reg = l2reg*((m - anchor).div(scale).square().sum())
+            #reg = l2reg*((m - anchor).div(scale).square().sum())
+            reg = l2reg*reg_fn(m)
             alpha = 0.1
             return (100*(pret1 - pret2))**2 + torch.exp(-alpha*(sharpe1 - sharpe2)**2).div(alpha) + reg
         
@@ -184,7 +216,8 @@ def G_contrast_function(
             vol2 = w_star2 @ pi2.Sigma @ w_star2
             sharpe1 = pret1/torch.sqrt(vol1)
             sharpe2 = pret2/torch.sqrt(vol2)
-            reg = l2reg*((m - anchor).div(scale).square().sum())
+            #reg = l2reg*((m - anchor).div(scale).square().sum())
+            reg = l2reg*reg_fn(m)
             return torch.exp(-(sharpe1 - sharpe2)**2) + reg
         
 
