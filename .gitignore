@@ -1,4 +1,5 @@
 Data/*
 .DS_Store
 Chen2024-replication/*
-__pycache__/*
+__pycache__
+.vscode

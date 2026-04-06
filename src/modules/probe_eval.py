@@ -18,15 +18,17 @@ Sigma_inv = np.load(VAR_DIR + "innovation_covariance_inv.npy")
 c = np.load(VAR_DIR + "intercept_c.npy")
 A = np.load(VAR_DIR + "transition_A.npy")
 
+
 def mahalonobis_reg(A, c, Sigma_inv, anchor):
-    A = torch.tensor(A)
+    A = torch.tensor(A,dtype= torch.float)
     c = torch.tensor(c)
     Sigma_inv = torch.tensor(Sigma_inv)
     anchor = torch.tensor(anchor)
     
     def regularizer(x:Tensor):
         diff = x - (A @ anchor + c)
-        md2 = diff.T @ Sigma_inv @ diff
+        md2 = diff @ (Sigma_inv @ diff)
+        print(md2)
         return md2
     
     return regularizer
@@ -177,9 +179,11 @@ def G_contrast_function(
             preds2_std = pi2.model._transform_mu(preds2)
             w1_star, = cvxpylayer1(preds1_std)
             w2_star, = cvxpylayer2(preds2_std)
+            pret1 = w1_star @ rets_t
+            pret2 = w2_star @ rets_t
             #reg = l2reg*((m - anchor).div(scale).square().sum())
             reg = l2reg*reg_fn(m)
-            return torch.exp( - (w1_star @ rets_t - w2_star @ rets_t)**2) + reg
+            return torch.exp( - 100*(pret1 - pret2)**2) + reg
 
     elif contrast_function == "similar_return-distinct_Sharpe":
         def G(m:torch.Tensor):
