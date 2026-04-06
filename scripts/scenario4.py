@@ -68,7 +68,9 @@ G, gradG = G_contrast_function(
 
 eta = 0.001
 beta = 10.
-hypsG = G, gradG, lambda t: (eta/beta)*sqrt_decay(1.)(t), beta,
+hypsG = G, gradG, lambda t: (eta/beta)*sqrt_decay(1.)(t), beta #, a, b 
+# add the above line if the samples keep getting away, the values are clipped, but I'd rather you 
+# just increase the regularizer strength.
 
 
 def main(    
