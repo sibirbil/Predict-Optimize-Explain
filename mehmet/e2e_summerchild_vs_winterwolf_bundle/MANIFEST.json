@@ -1,0 +1,86 @@
+{
+  "bundle_type": "e2e_summerchild_vs_winterwolf",
+  "root": "/content/drive/MyDrive/POE/models/e2e_v2_fixed_oneconfig_summer_vs_winter",
+  "scenario_dirs": [
+    "/content/drive/MyDrive/POE/models/e2e_v2_fixed_oneconfig_summer_vs_winter/scenario=summer_child_no_dotcom_pre2007",
+    "/content/drive/MyDrive/POE/models/e2e_v2_fixed_oneconfig_summer_vs_winter/scenario=winter_wolf_seen_2008_in_train"
+  ],
+  "runs_subdir_candidates": [
+    "runs_oneconfig",
+    "runs_universe_sweep",
+    "runs"
+  ],
+  "runs_included": 4,
+  "skipped_missing": 0,
+  "skipped_load_fail": 0,
+  "runs": [
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "runs_dir_name": "runs_oneconfig",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=200__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_oneconfig/scenario=summer_child_no_dotcom_pre2007__topk=200__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "d97894af5d922e97c0a793a3c24a28c75b61155c97a013f039eb5a1b3ba72fcb",
+      "best_state_bytes": 190389,
+      "included_extras": [
+        "train_summary.json",
+        "test_summary.json",
+        "train_log.csv",
+        "test_timeseries.csv"
+      ],
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=summer_child_no_dotcom_pre2007",
+      "runs_dir_name": "runs_oneconfig",
+      "run_name": "scenario=summer_child_no_dotcom_pre2007__topk=30__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=summer_child_no_dotcom_pre2007/runs_oneconfig/scenario=summer_child_no_dotcom_pre2007__topk=30__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "be58d9b1b4ef3ed7ed312e567b996f30172210d54599c1939e64d7efb51acf09",
+      "best_state_bytes": 190389,
+      "included_extras": [
+        "train_summary.json",
+        "test_summary.json",
+        "train_log.csv",
+        "test_timeseries.csv"
+      ],
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "runs_dir_name": "runs_oneconfig",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=200__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_oneconfig/scenario=winter_wolf_seen_2008_in_train__topk=200__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "30b92e4ebc0570169f992e18dab6ba2c827878471d3a6d8795abc7d6b95d8035",
+      "best_state_bytes": 190389,
+      "included_extras": [
+        "train_summary.json",
+        "test_summary.json",
+        "train_log.csv",
+        "test_timeseries.csv"
+      ],
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    },
+    {
+      "scenario": "scenario=winter_wolf_seen_2008_in_train",
+      "runs_dir_name": "runs_oneconfig",
+      "run_name": "scenario=winter_wolf_seen_2008_in_train__topk=30__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "rel_path": "scenario=winter_wolf_seen_2008_in_train/runs_oneconfig/scenario=winter_wolf_seen_2008_in_train__topk=30__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+      "best_state_sha256": "36d5ad72840e5761bb8f2841fb51121a865a0350b2659912ae31b6750216d5a3",
+      "best_state_bytes": 190389,
+      "included_extras": [
+        "train_summary.json",
+        "test_summary.json",
+        "train_log.csv",
+        "test_timeseries.csv"
+      ],
+      "config_has_input_dim": true,
+      "config_has_hidden_dims": true,
+      "config_has_dropout": true
+    }
+  ]
+}

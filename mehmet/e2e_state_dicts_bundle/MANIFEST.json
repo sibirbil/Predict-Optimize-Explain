@@ -1,0 +1,317 @@
+[
+  {
+    "run_name": "loss=return__gamma=10.0__kappa=0.0__omega=identity__mu=zscore",
+    "best_state_sha256": "c9e5038ba6f2b31e45e50d658dc60c74a3e0cd3b3e4a89a5af14c4d8b78fa843",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=10.0__kappa=0.1__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "a5287d963a1b38e2cc3fd0e62ab36d1850cc10dada168925d46bf6c4a0e6a638",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=10.0__kappa=0.1__omega=identity__mu=zscore",
+    "best_state_sha256": "662d27245f267c611ec94e7c08b263b14e7ec8107c36467f8eab4dba48dbc9f7",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "239508559fa67a4d6b92f25696014c0ead46a7c80b29e2aab86b0e74457f0612",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=10.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "0f60cdb96ab5a4700fa1aeae6302ec6e3a814a080f6602fc1df292f4c4797df8",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=20.0__kappa=0.0__omega=identity__mu=zscore",
+    "best_state_sha256": "ada7173c1ef9f6da06a87aea0741483c61d9545518788d5b6fa8679be925e47b",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=20.0__kappa=0.1__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "4cc175238c125d14fc67fad08bdc95e73c22a77dba383872bbc95b125a47b58f",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=20.0__kappa=0.1__omega=identity__mu=zscore",
+    "best_state_sha256": "9e6ecae2007e4e672b52321cf817e4e5678a31894ff834eb801d14c0f8b179d1",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=20.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "4a21966b5326aab6dae8bef2c03661501e9d99ecf4671104658f98307ab25fab",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "d6aed962122fe028f770b810e82f15e1af077d8b0558da6657c0ea24b2ca7cc8",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=5.0__kappa=0.0__omega=identity__mu=zscore",
+    "best_state_sha256": "63f9cbc92f83b6bcae103af6995fd38ffc60613def05d2cb9e9914c40f755347",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=5.0__kappa=0.1__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "16ae0b3d0813547e18dbb6f73b536055dbf8bb0ad440eaa5b49f6dbda7a3dc2e",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=5.0__kappa=0.1__omega=identity__mu=zscore",
+    "best_state_sha256": "9ddff8c24198903b5568892dfb3979f45961189d136258f5cecfa119f2e4ec90",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "8dd6880f5d8c9d8dd843ff2743ce2d4ffb02d40b149e434d87e9c911121cfeb2",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=return__gamma=5.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "cf403e2f4678ee331c09baddaacea7ecd5f06a3d5a190e83f42dc8ab1e3e01b4",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=10.0__kappa=0.0__omega=identity__mu=zscore",
+    "best_state_sha256": "a5812392e0167fadaad815e34d16f05894e68b49b81503ebcef9fc6cbbda8388",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=10.0__kappa=0.1__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "2379d87e7e8f9f6e04d45d025b4973a8c489a470f9bfc98ff43ffe1d78937e6e",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=10.0__kappa=0.1__omega=identity__mu=zscore",
+    "best_state_sha256": "3ecaa4bcfab94eb357f6cb096eed53572364bc2e02bec8801ee96b24e2b85ca9",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "d9f46f2597fe71132733fc421cd8bc96380589bdde37b93b23bb1e0df0db8c3d",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=10.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "a64c6306e284c5365c0188249387d71d82bd01b7b64726fddccbb341beca8f57",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=20.0__kappa=0.0__omega=identity__mu=zscore",
+    "best_state_sha256": "0b4cea40e939bdd82cd510d27a3fec060097ab7e75a98b59fc65402d2997278c",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=20.0__kappa=0.1__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "2189f8fe6757996c3ed0f95750f6c95a55b57ce1a358055161db46dd6d923703",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=20.0__kappa=0.1__omega=identity__mu=zscore",
+    "best_state_sha256": "65f68d5081e7bfbe313fefe1ecb1e776ddb9243c45252006e021f1847e41e72e",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=20.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "68b64080e78669dd3b426869aaa41440de45d45ab9ad4d35b9d7f80e54babcb8",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "226852a2ecf2bbbb5dfd5b63747576a369748b8644568aac528bb6c8cb0a1383",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=5.0__kappa=0.0__omega=identity__mu=zscore",
+    "best_state_sha256": "89d8d665d376099fba30faebc87a1504cfc455bcb2cbc3842fd8cab3ada59f97",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=5.0__kappa=0.1__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "f38c8f2395d5af44a6c37e763b97c3f9237e956f1ae1c3b0af510eca62047f85",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=5.0__kappa=0.1__omega=identity__mu=zscore",
+    "best_state_sha256": "d896eeb2a2d052819c22746dd791a6b02d975d8b0da2b15a67fa5ce63d053647",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "1097305e6272c8560242551e3924943ba07038acab429925e4030f453a568a5e",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=sharpe__gamma=5.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "efb4b145c956e7a353cbc54252b0b1db15eb71abf06ac9b22ec8976ecb4bf27d",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=10.0__kappa=0.0__omega=identity__mu=zscore",
+    "best_state_sha256": "58133f4442a2c50c92e410903344bb143fe72909436b79bc3552505603701ceb",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=10.0__kappa=0.1__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "dfe2d803a18189f8a9987c9d6d2f672ff65ff3d112deefd8252f71d3fc5763bc",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=10.0__kappa=0.1__omega=identity__mu=zscore",
+    "best_state_sha256": "3e0ababd88cf1bbc74022fb5eeeda6ab2f63e32d24f3edf238d2053b0f845c3b",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "48857dd2fdb7279828a4b0f44e196c4af343153d2f586ab4465f27c84cb874c6",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=10.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "f726761bd56b5b605a5ad006128730127e6873d7a42c64c02cdad6984afa6469",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=20.0__kappa=0.0__omega=identity__mu=zscore",
+    "best_state_sha256": "0aa4413552bebc367cb12724e4e34d27252ab75e0e2cfdb50e0d4665d4584b3f",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=20.0__kappa=0.1__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "77f8f2da71a7c612fb563d92e1a18cddc104fa0771b596312f5a3385e4a2f35a",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=20.0__kappa=0.1__omega=identity__mu=zscore",
+    "best_state_sha256": "b46635aa3bfc9a7684840bc8277c7e4d26fa6dfa0fcaef544c37efae24e06ada",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=20.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "8358ab0cbc95f68b002deab7efeb216e3cf78f3a53e995106de5a9f8176e5358",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "13e6c39c3c6e2ff6a567bfc05d9c3facb3f7e31a9044126e87304f912d908372",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=5.0__kappa=0.0__omega=identity__mu=zscore",
+    "best_state_sha256": "47c740fddfdb5f02b6251ccdd2206529a5255cf6915543c24b7bb9a6d834a4d8",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=5.0__kappa=0.1__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "74aca8e608ca3343e9f221a0cbfa30cb47755e6b5f26d2924c5cbdd3c0c1657f",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=5.0__kappa=0.1__omega=identity__mu=zscore",
+    "best_state_sha256": "767952afcdffd6b51b5470a54d3ea3b1a98fee6fd4b15267794f996259dad133",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "8ab4c48c9a9cf8d622ad3d7ea7172377cf2a75116f05ec9ef4a2a76fd606f526",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  },
+  {
+    "run_name": "loss=utility__gamma=5.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "1731d0175fd21e850cd69cba579f8bfad9d42744b4bd9d16ec01b21569143709",
+    "best_state_bytes": 190389,
+    "has_config": true,
+    "has_train_summary": true
+  }
+]

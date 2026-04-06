@@ -1,0 +1,434 @@
+[
+  {
+    "run_name": "topk=21__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "8ed62cabebe1a344420e35294d8251e9966360b931e987bf21cb5d6641260245",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=21__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "f8b26eed966c0d66e4cdeaa1ee8cd25316033c3e36096b7cdc0ab882fcf79106",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=21__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "79ffa3ef7367c89abb3db8878cb36b3e93caaaedf0d131ee49f0bb3e07ecd3e2",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=24__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "b3c4224f686b68361a3af328b08bff864d52d13b0e009cc6bc9aa615211532b0",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=24__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "32236bc35c6d0ed2b3ff41340c12838c80f3a5be6b30a35fa75f858dab61a488",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=24__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "14659af89b5f26317c7db349ab20f9efc299eeb04d197fee778268fe0108b1a5",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=34__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "005e65fa70d0281354fa076c5eecda6ff717c092a2b27c929ebfcff6ebb5f799",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=34__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "88b83dc1018a7907a24017e933a5ae2a061e7a0785354f3ab660d80c385a8e13",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=34__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "90ab1888da2163147d228645f6c7e159105dea20aefefdffc4c22588331ce82e",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=37__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "b1250eb01925f9acbf8e0f85f541936569f2ae8154f7dbe4aaf7f759382721c0",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=37__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "e4179c6a7eea34e3fc0d86a75cac62f22cf40aada317115ec3a7f4ad78326591",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=37__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "2be25dff114c9684c59e77e773076359b41ec0ec5a6b4042d308a947b9990756",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=40__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "1e15818d0eab5cd98328f9b2a3f0b244c970f34c4e35c5f6b39592b83857a04b",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=40__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "960f9da89523b639935364e9f6fc4f9ff647d75f1045d2d4a8d00badc19495d3",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=40__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "72823b8d7ee0b39161287796a0278e23a3699141a347eab6f253a3ca8802084e",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=42__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "19f86cd9b948032bc2d02195e169a3152e4193b3d41e774afa9352db2c6f0a07",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=42__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "da78279b04b2d6b18f2d203a0fac56c494a3605b0d17d11b21f2bfd41d9964d6",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=42__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "e2c1d9b73c0c4d0d06671a08ce0275698fb714ceaf1e2f033036276749ecce8a",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=47__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "07d9137c33726a3e35ac5216b9966fd5ba196c44e8030abcd9c35a8b4b72ab46",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=47__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "c275afd285dd6706e746ffaba8cf547d621a21015aca8053fc89f0bc3fe1fb05",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=47__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "fd11d70ef2f4e7ef7328a58fd0c48eae2314684093a8a651c014b7986e24b045",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=48__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "906d6c06c237fab33cdc846337d0b6b4729263b50cd74ef12944ca16510a84e6",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=48__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "631730731705e89465ba5d41a3d3f86463d8b1620924ae7f017f42e622602417",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=48__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "2da5295537d50abad243fdd482b07f4dc6520867391e830a656a5fb5fae53364",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=56__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "ce64b35bd13c99fb74bc30786bf64a843ca525ad2df69c363f54a0430a189a9d",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=56__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "1503f9b029b335349dfcbc25559cb547ee020cdf791cbafe1933a2933fc12df7",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=56__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "a8555ed19647f5ccc970272d609c1335c5eb398036f1b5cde2179baf8d4c3bcd",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=68__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "527f234d9c82eacc73c0a5365a69fdab9884318a5bf37461f47e55a08d7a9325",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=68__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "a0489a2f8cd67feaa9a68784872b51f4e9ae5b0c6bf1139e0c667e1a0dbb4e7b",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=68__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "191487e58ce5ca974eb42395bca5d6b836cd9d2dcdbdf0d28a6ea69e7b0818fa",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=75__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "f89dbd7d04813f89700ca7ba5e2a829281617a976acebacc3d7a20f1e22dc1c3",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=75__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "604c0173fa4f68aea7f6016157b9c5be204d54189f5be1c1ef5612ed19b4b849",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=75__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "2d52c21ecb38cc78bc01431cc2d4c48875172c8970749b90e345a11e1ac56b37",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=83__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "d0b2a9892aae970c4bdabe56ef4bd716be56b5ece180ee865ca32294b85d8f3f",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=83__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "8f0edf27e007146e71b93d85171e870b7b858b4618764c3c4783585a855358bb",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=83__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "b4de6fc6c45ed55249afe1d94eff4875431b5820fc39817736a56355d181baf4",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=85__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "aeda477eff92a47fb1ed478f0046edd7ebba8003cf6a870dcf3e4e1d20d54945",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=85__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "ca8a21a669eac87c922e94c489340f89548dc4fb6bf0b2155f9baa49cd777394",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=85__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "a18970a35f95e288397929249fb50986b751b52a1a6294a9c3839687061459e9",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=86__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "46343e7597091a8587a325e260673a00fb9d929fb8f1cb45c18abb99fa60d173",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=86__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "6d705e4e138db9a46a98df61b54da63e8a577cf2c365acca7286874b18068eef",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=86__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "2ba6669e8c6fdfda375174242de3ca555dc201df3b30c402d5840736d262c3ee",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=89__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "9041c2b71f4823124f6cf503eef0b9f1edf59f86f2a9bf22254deac1809ba191",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=89__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "1e23c9087fecf6a4d7d24123a05ccbd0d01e6c80d805999be5394f3bd910fb5c",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=89__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "2aab8c7f4755f744a14938d42c6b651e9c0ecf2e23cd1b4f5c5f151978c3b8df",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=92__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "e1819aea067ea81ab145c790b7ec31448b640fc08bb41c30ad99ab14726d9095",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=92__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "ec8f6979aeffa0f4799473bcb0b28e18ccc02a3c36636b570068f85df4011588",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=92__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "67376b2b08e799631eb321e2664be2caf87670edf6462d296d7e75209e4fd4bd",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=93__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "e6dafcdc6dbdb29f3aaa2729b44b0fa45180503a9120bdbc456b4694a53481e2",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=93__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "ae645ae3464ba7f76f2763e3fd38939a117f65868da2abc042e03e84a76a4ad1",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=93__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "fbf3805c15f4d91769fd1e4d8d8e77871841778304942e814a577b0919366347",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=94__loss=return__gamma=5.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "787af4aac06009b6fca2a8935622947465c838d9d2688ba2dd32bbfbb400a252",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=94__loss=sharpe__gamma=20.0__kappa=1.0__omega=identity__mu=zscore",
+    "best_state_sha256": "3a2642107c45ce54960d0ee158d0dd3f5113d5768078412f600b0316f3ee8b21",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  },
+  {
+    "run_name": "topk=94__loss=utility__gamma=10.0__kappa=1.0__omega=diagSigma__mu=zscore",
+    "best_state_sha256": "6982d31ab02a838342d551bcdd7ff71286ca285c8405d3dff905300aed696e3b",
+    "best_state_bytes": 190389,
+    "config_has_input_dim": true,
+    "config_has_hidden_dims": true,
+    "config_has_dropout": true
+  }
+]
