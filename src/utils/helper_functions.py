@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import numpy as np
 import torch
 
@@ -48,4 +50,3 @@ def sqrt_decay(init_lr):
 
 def harmonic_decay(init_lr):
     return power_decay(init_lr, 1)
-

@@ -1,14 +1,23 @@
 # -*- coding: utf-8 -*-
+from __future__ import annotations
 """
 Utilities (Python 3.9 compatible typing)
 """
 
 from typing import Any, Optional, Union, Tuple, List, Dict, Callable
 
-import jax
-import jax.numpy as jnp
-from jax import random as random
-from jax.tree_util import tree_map
+try:
+    import jax
+    import jax.numpy as jnp
+    from jax import random as random
+    from jax.tree_util import tree_map
+    _HAVE_JAX = True
+except Exception:
+    jax = None  # type: ignore
+    jnp = None  # type: ignore
+    random = None  # type: ignore
+    tree_map = None  # type: ignore
+    _HAVE_JAX = False
 import numpy as np
 import pandas as pd
 from numpy import ndarray
@@ -53,6 +62,8 @@ def make_traj(params):
     """
     Add a vacuous leading dimension so it can be fed into F function.
     """
+    if not _HAVE_JAX:
+        raise ImportError("make_traj requires jax, but jax is not installed in this runtime.")
     return tree_map(lambda x: jnp.expand_dims(x, 0), params)
 
 ###########################
@@ -71,6 +82,8 @@ def _re_one_hotify_one_row(key, weights: jnp.ndarray) -> jnp.ndarray:
     """
     Return a one-hot vector with probabilities given by 'weights'.
     """
+    if not _HAVE_JAX:
+        raise ImportError("_re_one_hotify_one_row requires jax, but jax is not installed in this runtime.")
     probs = _make_probability(weights)
     a = random.choice(key, len(weights), p=probs)
     return jax.nn.one_hot(a, num_classes=len(weights))
@@ -79,6 +92,8 @@ def re_one_hotify_probabilistic(key, X: jax.Array, idx: slice) -> jax.Array:
     """
     Replace columns X[:, idx] by one-hots sampled according to rowwise weights in that slice.
     """
+    if not _HAVE_JAX:
+        raise ImportError("re_one_hotify_probabilistic requires jax, but jax is not installed in this runtime.")
     coi = X[:, idx]  # columns of interest (weights per row)
     keys = random.split(key, X.shape[0])
     one_hots = jax.vmap(_re_one_hotify_one_row)(keys, coi)  # (keys, weights)
@@ -88,6 +103,8 @@ def re_one_hotify_argmax(X: jax.Array, idx: slice) -> jax.Array:
     """
     Replace columns X[:, idx] by deterministic one-hot of argmax along that slice.
     """
+    if not _HAVE_JAX:
+        raise ImportError("re_one_hotify_argmax requires jax, but jax is not installed in this runtime.")
     coi = X[:, idx]
     one_hots = jax.vmap(lambda v: (v >= jnp.max(v)).astype(float))(coi)
     return X.at[:, idx].set(one_hots)

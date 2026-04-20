@@ -1,0 +1,27 @@
+{
+  "run_name": "fnn_stdz_tuning/candidates/lr=0.0003__wd=1e-05",
+  "output_root": "batuhan/artifacts/fnn",
+  "data_config_path": "batuhan/configs/data/universe_500_stdz.json",
+  "variant_name": "clean_baseline",
+  "hidden_dims": [
+    32,
+    16,
+    8
+  ],
+  "dropout": 0.5,
+  "batch_norm": true,
+  "batch_size": 256,
+  "eval_batch_size": 2048,
+  "epochs": 100,
+  "optimizer_name": "adamw",
+  "learning_rate": 0.0003,
+  "weight_decay": 1e-05,
+  "patience": 10,
+  "seed": 42,
+  "device": "auto",
+  "max_train_rows": null,
+  "max_val_rows": null,
+  "max_test_rows": null,
+  "resolved_dataset_root": "/Users/batuhanatas/Desktop/POE4Nisan/Predict-Optimize-Explain/batuhan/universe_500",
+  "resolved_output_root": "/Users/batuhanatas/Desktop/POE4Nisan/Predict-Optimize-Explain/batuhan/artifacts/fnn"
+}

@@ -1,0 +1,57 @@
+{
+  "selected_candidate": {
+    "learning_rate": 0.0001,
+    "weight_decay": 1e-05,
+    "init_mode": "pretrained",
+    "lambda": 10.0,
+    "kappa": 0.5,
+    "omega_mode": "diag_sigma",
+    "label": "lr=0.0001__wd=1e-05__init=pretrained__lambda=10.0__kappa=0.5__omega=diag_sigma"
+  },
+  "best_epoch": 8,
+  "solver_mode": "exact_cvxpy",
+  "train_summary": {
+    "n_months": 252.0,
+    "annualized_return": 0.16474001985256198,
+    "annualized_excess_return": 0.11832573415301958,
+    "annualized_volatility": 0.12294204330271515,
+    "sharpe_ratio": 0.962451338649635,
+    "max_drawdown": -0.24179907316472704,
+    "average_turnover": 0.24768023957362512,
+    "average_herfindahl": 0.04054307942190447,
+    "average_effective_n": 26.65733665494244,
+    "average_max_weight": 0.0954244030816924,
+    "average_active_positions": 53.49603174603175
+  },
+  "validation_summary": {
+    "n_months": 120.0,
+    "annualized_return": 0.10953315356515078,
+    "annualized_excess_return": 0.09837315356541598,
+    "annualized_volatility": 0.11351015606116026,
+    "sharpe_ratio": 0.8666462718314973,
+    "max_drawdown": -0.311709083824828,
+    "average_turnover": 0.2963776363317754,
+    "average_herfindahl": 0.034528579074906286,
+    "average_effective_n": 32.64339393421367,
+    "average_max_weight": 0.08707571818182866,
+    "average_active_positions": 70.55
+  },
+  "test_summary": {
+    "n_months": 107.0,
+    "annualized_return": 0.12018133005505033,
+    "annualized_excess_return": 0.10181123660502128,
+    "annualized_volatility": 0.12291423992945869,
+    "sharpe_ratio": 0.8283111595812774,
+    "max_drawdown": -0.19556911800270782,
+    "average_turnover": 0.2951209169771534,
+    "average_herfindahl": 0.024063293176906423,
+    "average_effective_n": 43.205046751120875,
+    "average_max_weight": 0.0629589608478769,
+    "average_active_positions": 91.21495327102804
+  },
+  "warm_start_help_summary": {
+    "best_pretrained_val_sharpe": 0.8666462718314973,
+    "best_scratch_val_sharpe": -Infinity,
+    "pretrained_init_helped_on_validation": true
+  }
+}

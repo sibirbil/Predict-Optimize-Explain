@@ -1,0 +1,6 @@
+{
+  "lambda": 5.0,
+  "kappa": 0.25,
+  "omega_mode": "diag_sigma",
+  "label": "lambda=5.0__kappa=0.25__omega=diag_sigma"
+}

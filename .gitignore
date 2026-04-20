@@ -3,3 +3,9 @@ Data/*
 Chen2024-replication/*
 __pycache__
 .vscode
+batuhan/
+foundation/
+docs/
+pipelines/
+__pycache__/
+*.pyc

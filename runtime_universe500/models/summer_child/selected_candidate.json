@@ -1,0 +1,9 @@
+{
+  "learning_rate": 0.0001,
+  "weight_decay": 1e-05,
+  "init_mode": "pretrained",
+  "lambda": 10.0,
+  "kappa": 0.5,
+  "omega_mode": "diag_sigma",
+  "label": "lr=0.0001__wd=1e-05__init=pretrained__lambda=10.0__kappa=0.5__omega=diag_sigma"
+}

@@ -1,0 +1,34 @@
+{
+  "train_end_yyyymm": 200512,
+  "nfci_p80": 0.288674,
+  "infl_z_p67": 0.24008,
+  "tbl_z_p67": 0.262804,
+  "dfy_z_cap": 1.0,
+  "svar_z_cap": 1.0,
+  "tms_z_low": -0.907282,
+  "tms_z_quantile": 0.15,
+  "infl_z_nonpos_threshold": 0.0,
+  "stress_score_p67_diagnostic": 0.367138,
+  "macro_means": {
+    "dp": -3.645465,
+    "ep": -2.874283,
+    "bm": 0.441215,
+    "ntis": 0.010974,
+    "tbl": 0.058873,
+    "tms": 0.021831,
+    "dfy": 0.010835,
+    "svar": 0.002275,
+    "infl": 0.00303
+  },
+  "macro_stds": {
+    "dp": 0.466924,
+    "ep": 0.432119,
+    "bm": 0.271488,
+    "ntis": 0.017657,
+    "tbl": 0.032205,
+    "tms": 0.014809,
+    "dfy": 0.004526,
+    "svar": 0.004374,
+    "infl": 0.003149
+  }
+}

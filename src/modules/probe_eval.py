@@ -1,5 +1,6 @@
 import torch
 from dataclasses import dataclass, field
+from pathlib import Path
 from src.modules.pao_model_defs import PAOPortfolioModel
 
 from cvxpylayers.torch import CvxpyLayer
@@ -12,26 +13,33 @@ import pandas as pd
 import numpy as np
 Tensor = torch.Tensor
 
-VAR_DIR = './VAR1Regularizer/artifacts/var1/'
-Sigma = np.load(VAR_DIR + "innovation_covariance_Sigma.npy")
-Sigma_inv = np.load(VAR_DIR + "innovation_covariance_inv.npy")
-c = np.load(VAR_DIR + "intercept_c.npy")
-A = np.load(VAR_DIR + "transition_A.npy")
+VAR_DIR = Path(__file__).resolve().parents[2] / "VAR1Regularizer" / "artifacts" / "var1"
+Sigma = np.load(VAR_DIR / "innovation_covariance_Sigma.npy")
+Sigma_inv = np.load(VAR_DIR / "innovation_covariance_inv.npy")
+c = np.load(VAR_DIR / "intercept_c.npy")
+A = np.load(VAR_DIR / "transition_A.npy")
 
 
 def mahalonobis_reg(A, c, Sigma_inv, anchor):
-    A = torch.tensor(A,dtype= torch.float)
-    c = torch.tensor(c)
-    Sigma_inv = torch.tensor(Sigma_inv)
-    anchor = torch.tensor(anchor)
+    A = torch.tensor(A, dtype=torch.float32)
+    c = torch.tensor(c, dtype=torch.float32)
+    Sigma_inv = torch.tensor(Sigma_inv, dtype=torch.float32)
+    anchor = torch.as_tensor(anchor, dtype=torch.float32)
     
     def regularizer(x:Tensor):
         diff = x - (A @ anchor + c)
         md2 = diff @ (Sigma_inv @ diff)
-        print(md2)
         return md2
     
     return regularizer
+
+
+def _build_interactions(C_t, m: torch.Tensor) -> torch.Tensor:
+    if hasattr(C_t, "build") and callable(getattr(C_t, "build")):
+        return C_t.build(m)
+    one = torch.ones((1,), dtype=m.dtype, device=m.device)
+    mtilde = torch.cat([one, m])
+    return (C_t[:, None, :] * mtilde[None, :, None]).flatten(1)
 
 
 @dataclass
@@ -92,8 +100,7 @@ def G_function(
 
     if score_function == "PortfolioReturn":
         def G(m:torch.Tensor):
-            mtilde = torch.cat([torch.tensor([1]),m])
-            interactions = (C_t[:, None, :] * mtilde[None, :, None]).flatten(1)
+            interactions = _build_interactions(C_t, m)
             preds = pi.model.predictor(interactions)
             preds_std = pi.model._transform_mu(preds) #standardize predictions with zscores (or model.mu_transform)            
             w_star, = cvxpylayer(preds_std)
@@ -103,8 +110,7 @@ def G_function(
         
     elif score_function == "Sharpe":
         def G(m:torch.Tensor):
-            mtilde = torch.cat([torch.tensor([1]),m])
-            interactions = (C_t[:, None, :] * mtilde[None, :, None]).flatten(1)
+            interactions = _build_interactions(C_t, m)
             preds = pi.model.predictor(interactions)
             preds_std = pi.model._transform_mu(preds)
             w_star, = cvxpylayer(preds_std)
@@ -117,8 +123,7 @@ def G_function(
     elif isinstance(score_function,float): #how we detect the benchmark
         def G(m:torch.Tensor):
             b = score_function
-            mtilde = torch.cat([torch.tensor([1]),m])
-            interactions = (C_t[:, None, :] * mtilde[None, :, None]).flatten(1)
+            interactions = _build_interactions(C_t, m)
             preds = pi.model.predictor(interactions)
             preds_std = pi.model._transform_mu(preds)
             w_star, = cvxpylayer(preds_std)
@@ -129,8 +134,7 @@ def G_function(
         
     elif score_function=="Entropy": #encourages diverse networks
         def G(m: torch.Tensor):
-            mtilde = torch.cat([torch.tensor([1]),m])
-            interactions = (C_t[:, None, :] * mtilde[None, :, None]).flatten(1)
+            interactions = _build_interactions(C_t, m)
             preds = pi.model.predictor(interactions)
             preds_std = pi.model._transform_mu(preds)
             w_star, = cvxpylayer(preds_std)
@@ -171,8 +175,7 @@ def G_contrast_function(
 
     if contrast_function == "distinct_return":
         def G(m:torch.Tensor):
-            mtilde = torch.cat([torch.tensor([1]),m])
-            interactions = (C_t[:, None, :] * mtilde[None, :, None]).flatten(1)
+            interactions = _build_interactions(C_t, m)
             preds1 = pi1.model.predictor(interactions)
             preds2 = pi2.model.predictor(interactions)
             preds1_std = pi1.model._transform_mu(preds1)
@@ -187,8 +190,7 @@ def G_contrast_function(
 
     elif contrast_function == "similar_return-distinct_Sharpe":
         def G(m:torch.Tensor):
-            mtilde = torch.cat([torch.tensor([1]),m])   #prepend 1 to the macro variables
-            interactions = (C_t[:, None, :] * mtilde[None, :, None]).flatten(1)
+            interactions = _build_interactions(C_t, m)
             preds1 = pi1.model.predictor(interactions)
             preds2 = pi2.model.predictor(interactions)
             preds1_std = pi1.model._transform_mu(preds1)
@@ -246,8 +248,7 @@ def evaluate(
     Sigma_t : torch.Tensor, # the covariance of the assets looking back with EWMA from time t
     pi  : AllocationPipeline
 ):
-    mtilde = torch.cat([torch.tensor([1]),m])
-    interactions = (C_t[:, None, :] * mtilde[None, :, None]).flatten(1)
+    interactions = _build_interactions(C_t, m)
     preds_raw = pi.model.predictor(interactions)
     cvxpylayer = CvxpyLayer(pi.problem, parameters=pi.problem.parameters(), variables=pi.problem.variables())
     preds_standardized = pi.model._transform_mu(preds_raw)

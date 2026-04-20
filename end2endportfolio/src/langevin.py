@@ -1,7 +1,21 @@
-import jax
-import jax.numpy as jnp
-import jax.random as random
-from jax.tree_util import tree_map, tree_unflatten, tree_structure, tree_leaves, tree_reduce
+from __future__ import annotations
+
+try:
+    import jax
+    import jax.numpy as jnp
+    import jax.random as random
+    from jax.tree_util import tree_map, tree_unflatten, tree_structure, tree_leaves, tree_reduce
+    _HAVE_JAX = True
+except Exception:
+    jax = None  # type: ignore
+    jnp = None  # type: ignore
+    random = None  # type: ignore
+    tree_map = None  # type: ignore
+    tree_unflatten = None  # type: ignore
+    tree_structure = None  # type: ignore
+    tree_leaves = None  # type: ignore
+    tree_reduce = None  # type: ignore
+    _HAVE_JAX = False
 from functools import partial
 from numbers import Number
 from typing import Tuple, List, Optional
@@ -15,12 +29,18 @@ from end2endportfolio.src.utils import as_scheduler
 def F(x):
     return (x**4)/10 + (x**3)/10 - (x**2)
 
-F_grad = jax.grad(lambda x: jnp.reshape(F(x), ()))
-
-hyps = (F, F_grad, 0.1)
-state0 = (random.PRNGKey(0), 0.0)
-state1 = (random.PRNGKey(1), jnp.array(0.))
-state2 = (random.PRNGKey(2), jnp.array([0.]))
+if _HAVE_JAX:
+    F_grad = jax.grad(lambda x: jnp.reshape(F(x), ()))
+    hyps = (F, F_grad, 0.1)
+    state0 = (random.PRNGKey(0), 0.0)
+    state1 = (random.PRNGKey(1), jnp.array(0.))
+    state2 = (random.PRNGKey(2), jnp.array([0.]))
+else:
+    F_grad = None
+    hyps = None
+    state0 = None
+    state1 = None
+    state2 = None
 
 # ---------- Helpers ----------
 def _parse_hyps(hyps_tuple):
@@ -56,6 +76,8 @@ def leaf_langevin(
     eta     : float,
     clip_to : Tuple[Optional[float], Optional[float]],
 ):
+    if not _HAVE_JAX:
+        raise ImportError("JAX Langevin utilities require jax, but jax is not installed in this runtime.")
     step = x - eta * g + jnp.sqrt(2 * eta) * xi
     a, b = clip_to
     # jnp.clip does not accept None; handle individually
@@ -76,6 +98,8 @@ def langevin_step(
     Calculates the next step in Langevin dynamics for PyTree inputs.
     Returns (x_next, xi) where xi has same PyTree structure as x.
     """
+    if not _HAVE_JAX:
+        raise ImportError("JAX Langevin utilities require jax, but jax is not installed in this runtime.")
     keys = random.split(key, num=len(tree_leaves(x)))
     keys_tree = tree_unflatten(tree_structure(x), keys)
 
@@ -88,6 +112,8 @@ def MALA_step(state, hyps):
     """
     One MALA step for PyTree inputs.
     """
+    if not _HAVE_JAX:
+        raise ImportError("JAX MALA utilities require jax, but jax is not installed in this runtime.")
     key, x = state
     func, grad_func, eta, beta, clip_to = _parse_hyps(hyps)
     g = grad_func(x)
@@ -117,6 +143,8 @@ def MALA_step(state, hyps):
 
 
 def MALA_chain(state, hyps, NSteps: int):
+    if not _HAVE_JAX:
+        raise ImportError("JAX MALA utilities require jax, but jax is not installed in this runtime.")
     func, grad_func, eta, beta, clip_to = _parse_hyps(hyps)
     eta = as_scheduler(eta)
     # carry = (key, x, step)
@@ -134,6 +162,8 @@ def MALA_chain(state, hyps, NSteps: int):
     return (last_key, last_x), x_traj
 
 def nt_MALA(state, hyps, Nsteps: int):
+    if not _HAVE_JAX:
+        raise ImportError("JAX MALA utilities require jax, but jax is not installed in this runtime.")
     func, grad_func, eta, beta, clip_to = _parse_hyps(hyps)
     eta = as_scheduler(eta)
     key, x = state
@@ -179,7 +209,7 @@ def torch_langevin_step(
 
     return x_next.detach(), xi
 
-def torch_MALA_step(x: torch.Tensor, hyps) -> torch.Tensor:
+def torch_MALA_step(x: torch.Tensor, hyps, return_info: bool = False):
     """
     One MALA step for a single tensor with MH accept/reject.
     hyps: (func, grad_func, eta[, beta][, clip_low, clip_high])
@@ -210,13 +240,21 @@ def torch_MALA_step(x: torch.Tensor, hyps) -> torch.Tensor:
 
     accepted = torch.rand((), device=acc_prob.device).item() < acc_prob.item()
     x_next = x_prop if accepted else x
-    return x_next
+    if not return_info:
+        return x_next
+    info = {
+        "accepted": bool(accepted),
+        "accept_prob": float(acc_prob.item()),
+        "log_accept_ratio": float(log_acc_ratio.item()),
+    }
+    return x_next, info
 
 def torch_MALA_chain(
     x: torch.Tensor,
     hyps,
-    NSteps: int
-) -> Tuple[torch.Tensor, torch.Tensor]:
+    NSteps: int,
+    return_info: bool = False,
+):
     """
     MALA chain for a single tensor.
     Returns (final_x, stacked_trajectory) where stacked_trajectory has shape (NSteps, *x.shape).
@@ -226,14 +264,34 @@ def torch_MALA_chain(
 
     x.requires_grad_(True)
     traj: List[torch.Tensor] = []
+    accepted: List[bool] = []
+    accept_probs: List[float] = []
+    log_accept_ratios: List[float] = []
 
     for step in range(NSteps):
         lr = eta(step)
         new_hyps = (func, grad_func, lr, beta, *clip_to)
-        x = torch_MALA_step(x, new_hyps)
+        if return_info:
+            x, step_info = torch_MALA_step(x, new_hyps, return_info=True)
+            accepted.append(step_info["accepted"])
+            accept_probs.append(step_info["accept_prob"])
+            log_accept_ratios.append(step_info["log_accept_ratio"])
+        else:
+            x = torch_MALA_step(x, new_hyps)
         traj.append(x.detach())
 
-    return x.detach(), torch.stack(traj)
+    trajectory = torch.stack(traj)
+    if not return_info:
+        return x.detach(), trajectory
+    info = {
+        "accepted": accepted,
+        "accept_probs": accept_probs,
+        "log_accept_ratios": log_accept_ratios,
+        "accept_rate": float(np.mean(accepted)) if accepted else 0.0,
+        "mean_accept_prob": float(np.mean(accept_probs)) if accept_probs else 0.0,
+        "n_steps": int(NSteps),
+    }
+    return x.detach(), trajectory, info
 
 
 
