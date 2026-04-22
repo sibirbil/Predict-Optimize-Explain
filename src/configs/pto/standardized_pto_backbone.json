@@ -1,0 +1,7 @@
+{
+  "source_type": "saved_predictions",
+  "source_label": "fnn_stdz_tuning_winner",
+  "run_name": "lr=0.0003__wd=1e-05",
+  "output_root": "batuhan/artifacts/fnn/fnn_stdz_tuning/candidates",
+  "data_config_path": "foundation/configs/data/universe_500_stdz.json"
+}

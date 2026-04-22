@@ -1,0 +1,17 @@
+{
+  "run_name": "baseline_v1",
+  "dataset_root": "21April/universe_500_v21April_stdz_macro",
+  "output_root": "21April/artifacts/fnn",
+  "hidden_dims": [32, 16, 8],
+  "dropout": 0.5,
+  "batch_norm": true,
+  "batch_size": 256,
+  "eval_batch_size": 1024,
+  "epochs": 100,
+  "optimizer_name": "adamw",
+  "learning_rate": 0.001,
+  "weight_decay": 1e-05,
+  "patience": 10,
+  "seed": 42,
+  "device": "auto"
+}

@@ -1,0 +1,7 @@
+{
+  "source_type": "saved_predictions",
+  "source_label": "21A_best_test_locked_fnn",
+  "run_name": "21A_best_test",
+  "output_root": "21April/artifacts/fnn",
+  "data_config_path": "21April/configs/data/universe_500_stdz_macro.json"
+}

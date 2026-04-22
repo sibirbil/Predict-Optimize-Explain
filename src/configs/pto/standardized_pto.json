@@ -1,0 +1,22 @@
+{
+  "run_name": "standardized_pto",
+  "output_root": "batuhan/artifacts/pto",
+  "predictive_backbone_config_path": "foundation/configs/pto/standardized_pto_backbone.json",
+  "lookback_months": 60,
+  "ewma_lambda": 0.94,
+  "covariance_shrinkage": 0.1,
+  "covariance_ridge": 1e-06,
+  "min_assets": 20,
+  "lambda_grid": [5.0],
+  "kappa_grid": [0.25],
+  "omega_grid": ["diag_sigma"],
+  "max_avg_turnover": 1.0,
+  "max_avg_weight": 0.2,
+  "max_avg_herfindahl": 0.2,
+  "min_avg_effective_n": 10.0,
+  "min_avg_active_positions": 10.0,
+  "stage1_mode": "first_n",
+  "stage1_n_months": 24,
+  "stage1_stride": 2,
+  "stage2_n_finalists": 8
+}

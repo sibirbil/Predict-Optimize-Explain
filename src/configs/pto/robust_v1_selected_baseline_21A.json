@@ -1,0 +1,13 @@
+{
+  "name": "21A_standardized_pto_selected_baseline",
+  "source_run_name": "21A_standardized_pto_v1",
+  "predictive_backbone_config_path": "21April/configs/pto/predictive_backbone_21A_best_test.json",
+  "lookback_months": 60,
+  "ewma_lambda": 0.94,
+  "covariance_shrinkage": 0.1,
+  "covariance_ridge": 1e-06,
+  "min_assets": 20,
+  "lambda": 5.0,
+  "kappa": 0.25,
+  "omega_mode": "diag_sigma"
+}

@@ -1,0 +1,89 @@
+{
+  "run_name": "tuning_arch_v1",
+  "dataset_root": "21April/universe_500_v21April_stdz_macro",
+  "output_root": "21April/artifacts/fnn",
+  "hidden_dims": [32, 16, 8],
+  "dropout": 0.5,
+  "batch_norm": true,
+  "batch_size": 256,
+  "eval_batch_size": 1024,
+  "epochs": 100,
+  "optimizer_name": "adamw",
+  "learning_rate": 0.0003,
+  "weight_decay": 1e-05,
+  "patience": 10,
+  "seed": 42,
+  "device": "auto",
+  "candidate_overrides": [
+    {
+      "label": "base_lr3e4_wd1e5",
+      "learning_rate": 0.0003,
+      "weight_decay": 1e-05,
+      "hidden_dims": [32, 16, 8],
+      "dropout": 0.5,
+      "batch_norm": true,
+      "batch_size": 256,
+      "eval_batch_size": 1024
+    },
+    {
+      "label": "dropout_0p3",
+      "learning_rate": 0.0003,
+      "weight_decay": 1e-05,
+      "hidden_dims": [32, 16, 8],
+      "dropout": 0.3,
+      "batch_norm": true,
+      "batch_size": 256,
+      "eval_batch_size": 1024
+    },
+    {
+      "label": "dropout_0p4",
+      "learning_rate": 0.0003,
+      "weight_decay": 1e-05,
+      "hidden_dims": [32, 16, 8],
+      "dropout": 0.4,
+      "batch_norm": true,
+      "batch_size": 256,
+      "eval_batch_size": 1024
+    },
+    {
+      "label": "hidden_64_32_16",
+      "learning_rate": 0.0003,
+      "weight_decay": 1e-05,
+      "hidden_dims": [64, 32, 16],
+      "dropout": 0.5,
+      "batch_norm": true,
+      "batch_size": 256,
+      "eval_batch_size": 1024
+    },
+    {
+      "label": "hidden_64_32",
+      "learning_rate": 0.0003,
+      "weight_decay": 1e-05,
+      "hidden_dims": [64, 32],
+      "dropout": 0.5,
+      "batch_norm": true,
+      "batch_size": 256,
+      "eval_batch_size": 1024
+    },
+    {
+      "label": "no_batch_norm",
+      "learning_rate": 0.0003,
+      "weight_decay": 1e-05,
+      "hidden_dims": [32, 16, 8],
+      "dropout": 0.5,
+      "batch_norm": false,
+      "batch_size": 256,
+      "eval_batch_size": 1024
+    },
+    {
+      "label": "batch_size_512",
+      "learning_rate": 0.0003,
+      "weight_decay": 1e-05,
+      "hidden_dims": [32, 16, 8],
+      "dropout": 0.5,
+      "batch_norm": true,
+      "batch_size": 512,
+      "eval_batch_size": 1024
+    }
+  ]
+}

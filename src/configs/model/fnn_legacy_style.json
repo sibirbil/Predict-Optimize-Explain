@@ -1,0 +1,21 @@
+{
+  "run_name": "legacy_style",
+  "output_root": "batuhan/artifacts/fnn",
+  "data_config_path": "foundation/configs/data/universe_500.json",
+  "variant_name": "legacy_style",
+  "hidden_dims": [32, 16, 8],
+  "dropout": 0.5,
+  "batch_norm": true,
+  "batch_size": 1024,
+  "eval_batch_size": 2048,
+  "epochs": 20,
+  "optimizer_name": "adam",
+  "learning_rate": 0.0001,
+  "weight_decay": 0.0001,
+  "patience": 5,
+  "seed": 42,
+  "device": "auto",
+  "max_train_rows": null,
+  "max_val_rows": null,
+  "max_test_rows": null
+}
