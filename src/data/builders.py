@@ -7,6 +7,8 @@ from pathlib import Path
 from typing import Dict, Tuple
 import gc
 
+from src.data.macro_scaler import MacroScaler
+
 
 class HighRAMDatasetBuilder:
     """
@@ -51,7 +53,10 @@ class HighRAMDatasetBuilder:
         print(f"Total Rows: {len(self.full_df):,}")
         return self.full_df
 
-    def create_interactions(self) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    def create_interactions(
+        self,
+        macro_scaler: MacroScaler | None = None,
+    ) -> Tuple[pd.DataFrame, pd.DataFrame]:
         """
         Generate interaction terms between firm characteristics and macro predictors.
 
@@ -63,12 +68,15 @@ class HighRAMDatasetBuilder:
             - metadata: DataFrame with yyyymm, permno, excess_ret
         """
         print("\n--- Step 2: Generating Interaction Terms (In-Memory) ---")
+        df = self.full_df
+        if macro_scaler is not None:
+            df = macro_scaler.transform_df(df)
 
         # Identify column types
         meta_cols = ['permno', 'yyyymm', 'ret_tplus1', 'excess_ret', 'Rfree', 'Price', 'Size']
         macro_predictors = [c for c in self.macro_df.columns if c not in ['yyyymm', 'Rfree']]
         firm_cols = [
-            c for c in self.full_df.columns
+            c for c in df.columns
             if c not in meta_cols and c not in self.macro_df.columns
         ]
 
@@ -76,12 +84,12 @@ class HighRAMDatasetBuilder:
         print(f"Macro Predictors: {len(macro_predictors)} ({macro_predictors})")
 
         # Start with base firm features
-        X_parts = [self.full_df[firm_cols]]
+        X_parts = [df[firm_cols]]
 
         # Create interaction terms for each macro predictor
         for macro in macro_predictors:
             print(f"   Interacting {len(firm_cols)} features with '{macro}'...")
-            interaction_block = self.full_df[firm_cols].multiply(self.full_df[macro], axis=0)
+            interaction_block = df[firm_cols].multiply(df[macro], axis=0)
             interaction_block.columns = [f"{col}_x_{macro}" for col in firm_cols]
             X_parts.append(interaction_block)
 
@@ -90,7 +98,7 @@ class HighRAMDatasetBuilder:
         X_final = pd.concat(X_parts, axis=1)
 
         print(f"Final Feature Matrix Shape: {X_final.shape}")
-        return X_final, self.full_df[['yyyymm', 'permno', 'excess_ret']]
+        return X_final, df[['yyyymm', 'permno', 'excess_ret']]
 
     def create_interactions_chunked(
         self,

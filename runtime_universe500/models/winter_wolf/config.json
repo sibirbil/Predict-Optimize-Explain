@@ -1,11 +1,11 @@
 {
   "run_name": "winterwolf_balanced_v2",
-  "output_root": "/Users/batuhanatas/Desktop/POE4Nisan/Predict-Optimize-Explain/batuhan/artifacts/e2e_contrastive/standardized_ww",
-  "data_config_path": "batuhan/configs/data/universe_500_stdz.json",
-  "pto_baseline_config_path": "batuhan/configs/pto/robust_v1_selected_baseline.json",
-  "previous_e2e_run_name": "e2e_v4_exact_layer_grid_20260408_225715",
-  "previous_e2e_output_root": "batuhan/artifacts/e2e",
-  "pretrained_dir": "batuhan/artifacts/fnn/fnn_stdz_tuning/candidates/lr=0.0003__wd=1e-05",
+  "output_root": "/Users/batuhanatas/Desktop/POE4Nisan/Predict-Optimize-Explain/21April/artifacts/e2e_contrastive/21A_ww_gridC",
+  "data_config_path": "21April/configs/data/universe_500_stdz_macro.json",
+  "pto_baseline_config_path": "21April/configs/pto/robust_v1_selected_baseline_21A.json",
+  "previous_e2e_run_name": null,
+  "previous_e2e_output_root": "21April/artifacts/e2e",
+  "pretrained_dir": "21April/artifacts/fnn/21A_best_test",
   "lookback_months": 60,
   "ewma_lambda": 0.94,
   "covariance_shrinkage": 0.1,
@@ -22,7 +22,7 @@
   "patience": 4,
   "train_months_per_epoch": null,
   "learning_rate_grid": [
-    0.0001
+    3e-05
   ],
   "weight_decay_grid": [
     1e-05
@@ -48,12 +48,12 @@
   "max_val_months": null,
   "max_test_months": null,
   "stage1_enabled": false,
-  "stage1_epochs": 1,
+  "stage1_epochs": 2,
   "stage1_val_mode": "stride",
   "stage1_val_stride": 2,
   "stage1_val_n_months": 24,
-  "stage2_epochs": 2,
+  "stage2_epochs": 15,
   "stage2_n_finalists": 4,
-  "current_model_name": "stdz_exact_layer_focused_v1",
-  "previous_model_name": "stdz_exact_layer_baseline_v1"
+  "current_model_name": "21A_e2e_grid_C",
+  "previous_model_name": "21A_exact_layer_focused_v1"
 }

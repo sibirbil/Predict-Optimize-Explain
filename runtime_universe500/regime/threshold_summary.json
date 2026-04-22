@@ -1,14 +1,17 @@
 {
+  "label_version": "literature_regime_v1",
   "train_end_yyyymm": 200512,
-  "nfci_p80": 0.288674,
-  "infl_z_p67": 0.24008,
-  "tbl_z_p67": 0.262804,
-  "dfy_z_cap": 1.0,
-  "svar_z_cap": 1.0,
-  "tms_z_low": -0.907282,
-  "tms_z_quantile": 0.15,
-  "infl_z_nonpos_threshold": 0.0,
-  "stress_score_p67_diagnostic": 0.367138,
+  "nfci_tight_threshold": 0.0,
+  "term_spread_inversion_threshold": 0.0,
+  "sahm_rule_threshold": 0.5,
+  "inflation_target_annual": 0.02,
+  "inflation_target_monthly": 0.00165158,
+  "unrate_z_slack_threshold": 0.0,
+  "indpro_growth_z_weak_threshold": 0.0,
+  "unrate_mean": 6.171333,
+  "unrate_std": 1.474412,
+  "indpro_growth_mean": 2.704782,
+  "indpro_growth_std": 3.559585,
   "macro_means": {
     "dp": -3.645465,
     "ep": -2.874283,
@@ -30,5 +33,15 @@
     "dfy": 0.004526,
     "svar": 0.004374,
     "infl": 0.003149
+  },
+  "legacy_compat": {
+    "nfci_p80": 0.0,
+    "infl_z_p67": 0.00303,
+    "tbl_z_p67": 0.0,
+    "dfy_z_cap": 1.0,
+    "svar_z_cap": 1.0,
+    "tms_z_low": 0.0,
+    "stress_score_p67_diagnostic": 0.0,
+    "infl_z_nonpos_threshold": 0.0
   }
 }

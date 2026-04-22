@@ -1,38 +1,35 @@
 {
   "train": {
     "n_months": 312,
-    "accuracy": 0.8814,
-    "macro_f1": 0.7298,
+    "accuracy": 0.8205,
+    "macro_f1": 0.7922,
     "class_counts": {
-      "contraction": 20,
-      "expansion": 204,
-      "financial_stress": 80,
-      "stagflation": 8
+      "contraction": 46,
+      "expansion": 171,
+      "financial_stress": 95
     },
-    "stability_note": "Classifier appears stable on train: macro F1 = 0.730, accuracy = 0.881."
+    "stability_note": "Classifier appears stable on train: macro F1 = 0.792, accuracy = 0.821."
   },
   "val": {
     "n_months": 120,
-    "accuracy": 0.75,
-    "macro_f1": 0.5429,
+    "accuracy": 0.7583,
+    "macro_f1": 0.4075,
     "class_counts": {
-      "contraction": 12,
-      "expansion": 74,
-      "financial_stress": 26,
-      "stagflation": 8
+      "contraction": 7,
+      "expansion": 87,
+      "financial_stress": 26
     },
-    "stability_note": "Classifier appears stable on val: macro F1 = 0.543, accuracy = 0.750."
+    "stability_note": "WARNING: dominant class absorbs 72.5% of val months. Classifier may be trivially predicting the dominant class."
   },
   "test": {
     "n_months": 108,
-    "accuracy": 0.7593,
-    "macro_f1": 0.7098,
+    "accuracy": 0.9537,
+    "macro_f1": 0.8579,
     "class_counts": {
-      "contraction": 36,
-      "expansion": 52,
-      "financial_stress": 6,
-      "stagflation": 14
+      "contraction": 12,
+      "expansion": 94,
+      "financial_stress": 2
     },
-    "stability_note": "Classifier appears stable on test: macro F1 = 0.710, accuracy = 0.759."
+    "stability_note": "WARNING: dominant class absorbs 87.0% of test months. Classifier may be trivially predicting the dominant class."
   }
 }

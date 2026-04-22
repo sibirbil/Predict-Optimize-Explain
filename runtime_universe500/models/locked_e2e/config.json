@@ -1,9 +1,9 @@
 {
   "run_name": "stdz_exact_layer_focused_v1",
   "output_root": "batuhan/artifacts/e2e",
-  "data_config_path": "batuhan/configs/data/universe_500_stdz.json",
-  "pto_baseline_config_path": "batuhan/configs/pto/robust_v1_selected_baseline.json",
-  "previous_e2e_run_name": "e2e_v4_exact_layer_grid_20260408_225715",
+  "data_config_path": "foundation/configs/data/universe_500_stdz.json",
+  "pto_baseline_config_path": "foundation/configs/pto/robust_v1_selected_baseline.json",
+  "previous_e2e_run_name": null,
   "previous_e2e_output_root": "batuhan/artifacts/e2e",
   "pretrained_dir": "batuhan/artifacts/fnn/fnn_stdz_tuning/candidates/lr=0.0003__wd=1e-05",
   "lookback_months": 60,

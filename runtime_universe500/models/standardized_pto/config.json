@@ -1,7 +1,7 @@
 {
   "run_name": "standardized_pto",
   "output_root": "batuhan/artifacts/pto",
-  "predictive_backbone_config_path": "batuhan/configs/pto/standardized_pto_backbone.json",
+  "predictive_backbone_config_path": "foundation/configs/pto/standardized_pto_backbone.json",
   "lookback_months": 60,
   "ewma_lambda": 0.94,
   "covariance_shrinkage": 0.1,
