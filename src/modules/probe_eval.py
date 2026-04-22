@@ -13,24 +13,28 @@ import pandas as pd
 import numpy as np
 Tensor = torch.Tensor
 
-VAR_DIR = Path(__file__).resolve().parents[2] / "VAR1Regularizer" / "artifacts" / "var1"
-Sigma = np.load(VAR_DIR / "innovation_covariance_Sigma.npy")
-Sigma_inv = np.load(VAR_DIR / "innovation_covariance_inv.npy")
-c = np.load(VAR_DIR / "intercept_c.npy")
-A = np.load(VAR_DIR / "transition_A.npy")
+_VAR_ARTIFACTS_ROOT = Path(__file__).resolve().parents[2] / "VAR1Regularizer" / "artifacts"
+VAR_DIR = _VAR_ARTIFACTS_ROOT / "var1_standardized"
+if not VAR_DIR.exists():
+    VAR_DIR = _VAR_ARTIFACTS_ROOT / "var1"
+A         = torch.tensor(np.load(VAR_DIR / "transition_A.npy"),                dtype=torch.float32)
+c         = torch.tensor(np.load(VAR_DIR / "intercept_c.npy"),                 dtype=torch.float32)
+Sigma     = torch.tensor(np.load(VAR_DIR / "innovation_covariance_Sigma.npy"), dtype=torch.float32)
+Sigma_inv = torch.tensor(np.load(VAR_DIR / "innovation_covariance_inv.npy"),   dtype=torch.float32)
 
 
-def mahalonobis_reg(A, c, Sigma_inv, anchor):
-    A = torch.tensor(A, dtype=torch.float32)
-    c = torch.tensor(c, dtype=torch.float32)
-    Sigma_inv = torch.tensor(Sigma_inv, dtype=torch.float32)
+def mahalonobis_reg(
+    A: torch.Tensor,
+    c: torch.Tensor,
+    Sigma_inv: torch.Tensor,
+    anchor: torch.Tensor,
+):
     anchor = torch.as_tensor(anchor, dtype=torch.float32)
-    
-    def regularizer(x:Tensor):
+
+    def regularizer(x: Tensor):
         diff = x - (A @ anchor + c)
-        md2 = diff @ (Sigma_inv @ diff)
-        return md2
-    
+        return diff @ (Sigma_inv @ diff)
+
     return regularizer
 
 
@@ -89,61 +93,68 @@ def G_function(
     rets_t : torch.Tensor,
     score_function : str = "PortfolioReturn", #PortfolioReturn or Sharpe or Benchmark or Entropy
     anchor      : torch.Tensor = torch.zeros((9)),
-    l2reg       : float = 0.
+    l2reg       : float = 0.,
+    macro_mean  : torch.Tensor | None = None,
+    macro_std   : torch.Tensor | None = None,
 ):
     
     pi.model.eval()
     cvxpylayer = CvxpyLayer(pi.problem, parameters=pi.problem.parameters(), variables=pi.problem.variables())
     # scale so that the deviation in each coordinate can be measured in the same scale 
     # scale = torch.tensor([2.5856, 3.7924, 1.5339, 0.1413, 0.2326, 0.1126, 0.0372, 0.0844, 0.0414])
-    reg_fn = mahalonobis_reg(A, c, Sigma_inv, anchor)
+    anchor_in = (anchor - macro_mean) / macro_std if macro_mean is not None else anchor
+    reg_fn = mahalonobis_reg(A, c, Sigma_inv, anchor_in)
 
     if score_function == "PortfolioReturn":
         def G(m:torch.Tensor):
-            interactions = _build_interactions(C_t, m)
+            m_in = (m - macro_mean) / macro_std if macro_mean is not None else m
+            interactions = _build_interactions(C_t, m_in)
             preds = pi.model.predictor(interactions)
-            preds_std = pi.model._transform_mu(preds) #standardize predictions with zscores (or model.mu_transform)            
+            preds_std = pi.model._transform_mu(preds) #standardize predictions with zscores (or model.mu_transform)
             w_star, = cvxpylayer(preds_std)
             #reg = l2reg*((m - anchor).div(scale).square().sum())
-            reg = l2reg*reg_fn(m)
+            reg = l2reg*reg_fn(m_in)
             return - (w_star @ rets_t) + reg
-        
+
     elif score_function == "Sharpe":
         def G(m:torch.Tensor):
-            interactions = _build_interactions(C_t, m)
+            m_in = (m - macro_mean) / macro_std if macro_mean is not None else m
+            interactions = _build_interactions(C_t, m_in)
             preds = pi.model.predictor(interactions)
             preds_std = pi.model._transform_mu(preds)
             w_star, = cvxpylayer(preds_std)
             returns = w_star @ rets_t
             vol = torch.sqrt(w_star @ pi.Sigma @ w_star)*sqrt(12)
             # reg = l2reg*((m - anchor).div(scale).square().sum())
-            reg = l2reg*reg_fn(m)
+            reg = l2reg*reg_fn(m_in)
             return - returns/vol + reg
-        
+
     elif isinstance(score_function,float): #how we detect the benchmark
         def G(m:torch.Tensor):
             b = score_function
-            interactions = _build_interactions(C_t, m)
+            m_in = (m - macro_mean) / macro_std if macro_mean is not None else m
+            interactions = _build_interactions(C_t, m_in)
             preds = pi.model.predictor(interactions)
             preds_std = pi.model._transform_mu(preds)
             w_star, = cvxpylayer(preds_std)
             returns = w_star @ rets_t
             #reg = l2reg*((m - anchor).div(scale).square().sum())
-            reg = l2reg*reg_fn(m)
+            reg = l2reg*reg_fn(m_in)
             return (100*(returns - b))**2 + reg
-        
+
     elif score_function=="Entropy": #encourages diverse networks
         def G(m: torch.Tensor):
-            interactions = _build_interactions(C_t, m)
+            m_in = (m - macro_mean) / macro_std if macro_mean is not None else m
+            interactions = _build_interactions(C_t, m_in)
             preds = pi.model.predictor(interactions)
             preds_std = pi.model._transform_mu(preds)
             w_star, = cvxpylayer(preds_std)
             # reg = l2reg*((m - anchor).div(scale).square().sum())
-            reg = l2reg*reg_fn(m)
+            reg = l2reg*reg_fn(m_in)
             return -robust_entropy(w_star) + reg
         
     else:
-        ValueError("score_function should be one of PortfolioReturn/Sharpe/Entropy or a float")
+        raise ValueError("score_function should be one of PortfolioReturn/Sharpe/Entropy or a float")
 
     def gradG(m:torch.Tensor):
         m.requires_grad_(True)
@@ -161,11 +172,15 @@ def G_contrast_function(
     rets_t :torch.Tensor,
     contrast_function : str = "distinct_return", #distinct_return or distinct_Sharpe or similar_return-distinct_Sharpe
     anchor      : torch.Tensor = torch.zeros((9)),
-    l2reg       : float = 0.
+    l2reg       : float = 0.,
+    gamma       : float = 0.5, # only for distinct_return; controls the strength of the contrast; higher gamma → stronger contrast
+    macro_mean  : torch.Tensor | None = None,
+    macro_std   : torch.Tensor | None = None,
+    reg_fn      : "callable | None" = None,  # override regularizer; None → VAR(1) mahalonobis
 ):
-    
-    #scale = torch.tensor([2.5856, 3.7924, 1.5339, 0.1413, 0.2326, 0.1126, 0.0372, 0.0844, 0.0414])
-    reg_fn = mahalonobis_reg(A, c, Sigma_inv, anchor)
+    anchor_in = (anchor - macro_mean) / macro_std if macro_mean is not None else anchor
+    if reg_fn is None:
+        reg_fn = mahalonobis_reg(A, c, Sigma_inv, anchor_in)
 
     pi1.model.eval()
     pi2.model.eval()
@@ -175,56 +190,51 @@ def G_contrast_function(
 
     if contrast_function == "distinct_return":
         def G(m:torch.Tensor):
-            interactions = _build_interactions(C_t, m)
+            m_in = (m - macro_mean) / macro_std if macro_mean is not None else m
+            interactions = _build_interactions(C_t, m_in)
             preds1 = pi1.model.predictor(interactions)
             preds2 = pi2.model.predictor(interactions)
-            preds1_std = pi1.model._transform_mu(preds1)
-            preds2_std = pi2.model._transform_mu(preds2)
-            w1_star, = cvxpylayer1(preds1_std)
-            w2_star, = cvxpylayer2(preds2_std)
+            w1_star, = cvxpylayer1(preds1)
+            w2_star, = cvxpylayer2(preds2)
             pret1 = w1_star @ rets_t
             pret2 = w2_star @ rets_t
             #reg = l2reg*((m - anchor).div(scale).square().sum())
-            reg = l2reg*reg_fn(m)
-            return torch.exp( - 100*(pret1 - pret2)**2) + reg
+            reg = l2reg*reg_fn(m_in)
+            return torch.exp(-gamma * pow((100*(pret1 - pret2)), 2)).div(gamma) + reg
 
     elif contrast_function == "similar_return-distinct_Sharpe":
         def G(m:torch.Tensor):
-            interactions = _build_interactions(C_t, m)
+            m_in = (m - macro_mean) / macro_std if macro_mean is not None else m
+            interactions = _build_interactions(C_t, m_in)
             preds1 = pi1.model.predictor(interactions)
             preds2 = pi2.model.predictor(interactions)
-            preds1_std = pi1.model._transform_mu(preds1)
-            preds2_std = pi2.model._transform_mu(preds2)
-            w1_star, = cvxpylayer1(preds1_std)
-            w2_star, = cvxpylayer2(preds2_std)
+            w1_star, = cvxpylayer1(preds1)
+            w2_star, = cvxpylayer2(preds2)
             pret1 = w1_star @ rets_t
             pret2 = w2_star @ rets_t
-            sharpe1 = sqrt(12)*pret1/torch.sqrt(w1_star@ pi1.Sigma @ w1_star) 
+            sharpe1 = sqrt(12)*pret1/torch.sqrt(w1_star@ pi1.Sigma @ w1_star)
             sharpe2 = sqrt(12)*pret2/torch.sqrt(w2_star @pi2.Sigma @ w2_star)
             #reg = l2reg*((m - anchor).div(scale).square().sum())
-            reg = l2reg*reg_fn(m)
-            alpha = 0.1
-            return (100*(pret1 - pret2))**2 + torch.exp(-alpha*(sharpe1 - sharpe2)**2).div(alpha) + reg
-        
+            reg = l2reg*reg_fn(m_in)
+            return (100*(pret1 - pret2))**2 + torch.exp(-gamma*(sharpe1 - sharpe2)**2).div(gamma) + reg
+
     elif contrast_function == "distinct_Sharpe":
         def G(m:torch.Tensor):
-            mtilde = torch.cat([1,m])
-            interactions = (C_t[:, None, :] * mtilde[None, :, None]).flatten(1)
+            m_in = (m - macro_mean) / macro_std if macro_mean is not None else m
+            interactions = _build_interactions(C_t, m_in)
             preds1 = pi1.model.predictor(interactions)
             preds2 = pi2.model.predictor(interactions)
-            preds1_std = pi1.model._transform_mu(preds1)
-            preds2_std = pi2.model._transform_mu(preds2)
-            w_star1, = cvxpylayer1(preds1_std)
-            w_star2, = cvxpylayer2(preds2_std)
+            w_star1, = cvxpylayer1(preds1)
+            w_star2, = cvxpylayer2(preds2)
             pret1 = w_star1 @ rets_t
             pret2 = w_star2 @ rets_t
             vol1 = w_star1 @ pi1.Sigma @ w_star1
             vol2 = w_star2 @ pi2.Sigma @ w_star2
-            sharpe1 = pret1/torch.sqrt(vol1)
-            sharpe2 = pret2/torch.sqrt(vol2)
+            sharpe1 = sqrt(12)*pret1/torch.sqrt(vol1)
+            sharpe2 = sqrt(12)*pret2/torch.sqrt(vol2)
             #reg = l2reg*((m - anchor).div(scale).square().sum())
-            reg = l2reg*reg_fn(m)
-            return torch.exp(-(sharpe1 - sharpe2)**2) + reg
+            reg = l2reg*reg_fn(m_in)
+            return torch.exp( -gamma* (pow(10*(sharpe1 - sharpe2), 2))).div(gamma) + reg
         
 
     def gradG(m:torch.Tensor):
@@ -246,9 +256,12 @@ def evaluate(
     C_t     : torch.Tensor,  # firm characteristics from time t
     rets_t  : torch.Tensor, # realized returns
     Sigma_t : torch.Tensor, # the covariance of the assets looking back with EWMA from time t
-    pi  : AllocationPipeline
+    pi  : AllocationPipeline,
+    macro_mean : torch.Tensor | None = None,
+    macro_std  : torch.Tensor | None = None,
 ):
-    interactions = _build_interactions(C_t, m)
+    m_in = (m - macro_mean) / macro_std if macro_mean is not None else m
+    interactions = _build_interactions(C_t, m_in)
     preds_raw = pi.model.predictor(interactions)
     cvxpylayer = CvxpyLayer(pi.problem, parameters=pi.problem.parameters(), variables=pi.problem.variables())
     preds_standardized = pi.model._transform_mu(preds_raw)
@@ -273,12 +286,14 @@ def traj_outputs(
     rets_t  : torch.Tensor,
     Sigma_t : torch.Tensor,
     pi      : AllocationPipeline,
-    permnos : list
+    permnos : list,
+    macro_mean : torch.Tensor | None = None,
+    macro_std  : torch.Tensor | None = None,
 ):
     wstars = []
     reslts = []
     for m in m_traj:
-        reslt , wstar = evaluate(m, C_t, rets_t, Sigma_t, pi) 
+        reslt , wstar = evaluate(m, C_t, rets_t, Sigma_t, pi, macro_mean, macro_std) 
         wstars.append(wstar)
         reslts.append(reslt)
     
