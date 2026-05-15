@@ -157,7 +157,7 @@ def _early_cli_int(name: str, default: int) -> int:
     return default
 
 
-ASSET_SIZE: Optional[int] = 50  # None = all assets with full history; int = top-K by past return
+ASSET_SIZE: Optional[int] = 50  
 
 DATE = _early_cli_int("--date", 202004)
 
@@ -165,14 +165,10 @@ LAMBDA = 10.0
 
 KAPPA = 0.5 
 
-GAMMA = 0.5 # controls the strength of the contrast in the G function; higher gamma → stronger contrast, more aggressive moves to increase the return gap (for "distinct_return" contrast)
+GAMMA = 0.5 
 
-L2REG = 0.3  # 2026-04-24 sweep winner: high SC-WW gap, 100% SC wins, no box violations.
+L2REG = 0.3  
 
-# Standard MALA parameterization for target pi(m) ∝ exp(-BETA * G(m)):
-#   m' = m - ETA * BETA * gradG(m) + sqrt(2 * ETA) * xi
-# ETA=0.001 with L2REG=0.3 and box_barrier gave acc=74%, L2_med=1.36,
-# gap_mean=+3.32%, SCwin=100%, outBox=0 in the 2026-04-24 sweep.
 ETA = 0.001
 
 BETA = 10.0
