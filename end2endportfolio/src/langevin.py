@@ -120,18 +120,20 @@ def MALA_step(state, hyps):
     g = tree_map(lambda leaf: beta * leaf, g)
 
     key, accept_key = random.split(key)
-    x_proposed, xi = langevin_step(key, x, g, eta, clip_to)
+    x_proposed, _ = langevin_step(key, x, g, eta, clip_to)
 
     g_proposed = grad_func(x_proposed)
     g_proposed = tree_map(lambda leaf: beta * leaf, g_proposed)
 
-    def leaf_log_proposal_ratio(x_leaf, x_prop_leaf, g_prop_leaf, xi_leaf):
-        forward = -jnp.sum(jnp.square(xi_leaf)) / (4 * eta)
-        reverse = -jnp.sum(jnp.square(x_leaf - x_prop_leaf + eta * g_prop_leaf)) / (4 * eta)
+    def leaf_log_proposal_ratio(x_leaf, x_prop_leaf, g_leaf, g_prop_leaf):
+        forward_delta = x_prop_leaf - x_leaf + eta * g_leaf
+        reverse_delta = x_leaf - x_prop_leaf + eta * g_prop_leaf
+        forward = -jnp.sum(jnp.square(forward_delta)) / (4 * eta)
+        reverse = -jnp.sum(jnp.square(reverse_delta)) / (4 * eta)
         return reverse - forward
 
     log_prop_ratio = tree_reduce(lambda a, b: a + b,
-                                 tree_map(leaf_log_proposal_ratio, x, x_proposed, g_proposed, xi))
+                                 tree_map(leaf_log_proposal_ratio, x, x_proposed, g, g_proposed))
 
     log_acc_ratio = -beta * func(x_proposed) + beta * func(x) + log_prop_ratio
     acc_prob = jnp.minimum(1.0, jnp.exp(log_acc_ratio))
@@ -222,14 +224,14 @@ def torch_MALA_step(x: torch.Tensor, hyps, return_info: bool = False):
 
     # propose
     with torch.no_grad():
-        x_prop, xi = torch_langevin_step(x, g_beta, eta, clip_to)
+        x_prop, _ = torch_langevin_step(x, g_beta, eta, clip_to)
 
     # gradient at proposal
     g_prop = grad_func(x_prop.requires_grad_())
     g_prop_beta = beta * g_prop
 
-    # log proposal ratio
-    forward = -torch.sum(xi ** 2) / (4 * eta)
+    # Use the actual Gaussian proposal deltas for both directions.
+    forward = -torch.sum((x_prop - x + eta * g_beta) ** 2) / (4 * eta)
     reverse = -torch.sum((x - x_prop + eta * g_prop_beta) ** 2) / (4 * eta)
     log_prop_ratio = reverse - forward
 

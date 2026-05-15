@@ -8,5 +8,8 @@ foundation/
 docs/
 pipelines/
 21April/
+submission_plots/
+notes/
+scenario_outputs/
 __pycache__/
 *.pyc
