@@ -9,7 +9,7 @@ Each explanation is cast as a Gibbs distribution: a plausibility prior tilted by
 ## Links
 
 - Paper: Ataş, Aydın, Kıral & Birbil (2026), *Generating Input Distributions for Explaining Portfolio Optimization Pipelines*, [arXiv:2606.25808](https://arxiv.org/abs/2606.25808)
-- Presentation: [POE pre-defense slides](https://sibirbil.github.io/files/poe/POE_presentation.html) (self-contained HTML, opens in any browser)
+- Presentation: [POE pre-defense slides](https://sibirbil.github.io/files/poe/POE_presentation.html) (self-contained HTML explaining our framework)
 
 ## Method
 
